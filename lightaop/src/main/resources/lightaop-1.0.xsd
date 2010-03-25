@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/lightaop-1.0" xmlns:tns="http://www.example.org/lightaop-1.0" elementFormDefault="qualified">
+
+  <xs:simpleType name="match">   
+      <xs:restriction base="xs:string">   
+          <xs:enumeration value="dynamic"/>   
+          <xs:enumeration value="exception"/>   
+          <xs:enumeration value="none"/>   
+          <xs:enumeration value="parameter"/>   
+      </xs:restriction>   
+   </xs:simpleType>   
+   <xs:complexType name="Descriptor">   
+       <xs:choice>   
+           <xs:element name="args" type="Args" minOccurs="0" maxOccurs="1"/>   
+           <xs:element name="pattern" type="xs:string" minOccurs="0" maxOccurs="1"/>   
+       </xs:choice>   
+   </xs:complexType>   
+   <xs:complexType name="Args">   
+       <xs:sequence>   
+           <xs:element name="arg" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>   
+           <xs:element name="ret" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>   
+           <xs:element name="exp" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>   
+       </xs:sequence>   
+   </xs:complexType>   
+   <xs:complexType name="Config">   
+       <xs:sequence>   
+           <xs:element name="service" type="Service" minOccurs="0" maxOccurs="unbounded"/>   
+       </xs:sequence>   
+   </xs:complexType>   
+   <xs:element name="config" type="Config"/>   
+   <xs:complexType name="Adapter">   
+       <xs:sequence/>   
+       <xs:attribute name="class" use="optional" type="xs:string"/>   
+       <xs:attribute name="name" use="optional" type="xs:string"/>   
+   </xs:complexType>   
+   <xs:complexType name="Service">   
+       <xs:sequence minOccurs="0">   
+           <xs:element name="adapter" type="Adapter" minOccurs="0" maxOccurs="1"/>   
+           <xs:element name="component" type="Component" minOccurs="1" maxOccurs="1"/>   
+           <xs:element name="method" type="Method" minOccurs="1" maxOccurs="1"/>   
+       </xs:sequence>   
+       <xs:attribute name="class" use="optional" type="xs:string"/>   
+       <xs:attribute name="match" use="optional" default="none" type="match"/>   
+       <xs:attribute name="name" use="optional" type="xs:string"/>   
+       <xs:attribute name="static" use="optional" default="false" type="xs:boolean"/>   
+       <xs:attribute name="style" use="optional" default="return" type="Style"/>   
+   </xs:complexType>   
+   <xs:complexType name="Component">   
+       <xs:sequence>   
+           <xs:element name="method" type="Method" minOccurs="0" maxOccurs="1"/>   
+       </xs:sequence>   
+       <xs:attribute name="class" use="optional" type="xs:string"/>   
+       <xs:attribute name="name" use="optional" type="xs:string"/>   
+   </xs:complexType>   
+   <xs:simpleType name="Style">   
+       <xs:restriction base="xs:string">   
+           <xs:enumeration value="after"/>   
+           <xs:enumeration value="before"/>   
+           <xs:enumeration value="return"/>   
+           <xs:enumeration value="throw"/>   
+       </xs:restriction>   
+   </xs:simpleType>   
+   <xs:complexType name="Method">   
+       <xs:sequence>   
+           <xs:element name="descriptor" type="Descriptor" minOccurs="0" maxOccurs="1"/>   
+       </xs:sequence>   
+       <xs:attribute name="match" use="optional" default="none" type="match"/>   
+       <xs:attribute name="name" use="optional" type="xs:string"/>   
+   </xs:complexType>  
+
+</schema>
