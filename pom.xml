@@ -7,15 +7,43 @@
   <artifactId>lightassets</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>${project.artifactId} v${project.version}</name>
+  <name>lightassets</name>
   <url>http://www.youisoft.com</url>
   <modules>
     <module>lightaop</module>
+    <module>ssa-memcached</module>
   </modules>
   
 
   <dependencyManagement>
     <dependencies>
+    
+     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>1.5.3</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>0.9.9</version>
+    </dependency>
+    
     </dependencies>
   </dependencyManagement>
 </project>
