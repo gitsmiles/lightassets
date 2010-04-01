@@ -14,24 +14,24 @@
 <!-- aop:aspectj-autoproxy/ -->
 
 
-<bean id="cacheFactory" class="com.fost.category.cache.impl.CacheServiceCacheFactory" />
+<bean id="cacheFactory" class="com.fost.ssacache.impl.CacheServiceCacheFactory" />
 
-<bean id="cacheKeyStoreStrategy" class="com.fost.category.cache.key.DefaultCacheKeyStoreStrategy" />
+<bean id="cacheKeyStoreStrategy" class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
 
-<bean id="cacheKeyProvider" class="com.fost.category.cache.key.DefaultCacheKeyProvider" >
+<bean id="cacheKeyProvider" class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
 	<property name="cacheKeyStoreStrategy" ref="cacheKeyStoreStrategy"></property></bean>
 
-<bean id="ssaContext" abstract="true" class="com.fost.category.cache.SsaContext">
+<bean id="ssaContext" abstract="true" class="com.fost.ssacache.SsaContext">
 	<property name="cacheFactory" ref="cacheFactory"></property>
 	<property name="cacheKeyProvider" ref="cacheKeyProvider"></property>
 	</bean>
 
-<bean id="readFromCacheAspect" class="com.fost.category.cache.aspect.ReadFromCacheAspect" parent="ssaContext" />
-<bean id="getFromCacheAspect" class="com.fost.category.cache.aspect.GetFromCacheAspect" parent="ssaContext" />
+<bean id="readFromCacheAspect" class="com.fost.ssacache.aspect.ReadFromCacheAspect" parent="ssaContext" />
+<bean id="getFromCacheAspect" class="com.fost.ssacache.aspect.GetFromCacheAspect" parent="ssaContext" />
 
-<bean id="addToCacheAspect" class="com.fost.category.cache.aspect.AddToCacheAspect" parent="ssaContext" />
-<bean id="setToCacheAspect" class="com.fost.category.cache.aspect.SetToCacheAspect" parent="ssaContext" />
+<bean id="addToCacheAspect" class="com.fost.ssacache.aspect.AddToCacheAspect" parent="ssaContext" />
+<bean id="setToCacheAspect" class="com.fost.ssacache.aspect.SetToCacheAspect" parent="ssaContext" />
 
-<bean id="DeleteFromCacheAspect" class="com.fost.category.cache.aspect.DeleteFromCacheAspect" parent="ssaContext" />
+<bean id="DeleteFromCacheAspect" class="com.fost.ssacache.aspect.DeleteFromCacheAspect" parent="ssaContext" />
 
 </beans>
