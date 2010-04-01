@@ -2,6 +2,8 @@ package com.fost.ssacache.impl;
 
 import java.util.concurrent.TimeoutException;
 
+import net.rubyeye.xmemcached.MemcachedClient;
+
 import com.fost.ssacache.Cache;
 
 /**
@@ -11,6 +13,7 @@ import com.fost.ssacache.Cache;
  */
 public class XMemcachedCache implements Cache {
 
+	private MemcachedClient memcachedClient;
 	@Override
 	public boolean add(String key, int exp, Object value, long timeout)
 			throws TimeoutException, InterruptedException {
@@ -57,6 +60,14 @@ public class XMemcachedCache implements Cache {
 			throws InterruptedException {
 		
 		
+	}
+
+	public final MemcachedClient getMemcachedClient() {
+		return memcachedClient;
+	}
+
+	public final void setMemcachedClient(MemcachedClient memcachedClient) {
+		this.memcachedClient = memcachedClient;
 	}
 
 	
