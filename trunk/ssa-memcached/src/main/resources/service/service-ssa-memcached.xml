@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+<!-- aop:aspectj-autoproxy/ -->
+
+
+<bean id="cacheFactory" class="com.fost.category.cache.impl.CacheServiceCacheFactory" />
+
+<bean id="cacheKeyStoreStrategy" class="com.fost.category.cache.key.DefaultCacheKeyStoreStrategy" />
+
+<bean id="cacheKeyProvider" class="com.fost.category.cache.key.DefaultCacheKeyProvider" >
+	<property name="cacheKeyStoreStrategy" ref="cacheKeyStoreStrategy"></property></bean>
+
+<bean id="ssaContext" abstract="true" class="com.fost.category.cache.SsaContext">
+	<property name="cacheFactory" ref="cacheFactory"></property>
+	<property name="cacheKeyProvider" ref="cacheKeyProvider"></property>
+	</bean>
+
+<bean id="readFromCacheAspect" class="com.fost.category.cache.aspect.ReadFromCacheAspect" parent="ssaContext" />
+<bean id="getFromCacheAspect" class="com.fost.category.cache.aspect.GetFromCacheAspect" parent="ssaContext" />
+
+<bean id="addToCacheAspect" class="com.fost.category.cache.aspect.AddToCacheAspect" parent="ssaContext" />
+<bean id="setToCacheAspect" class="com.fost.category.cache.aspect.SetToCacheAspect" parent="ssaContext" />
+
+<bean id="DeleteFromCacheAspect" class="com.fost.category.cache.aspect.DeleteFromCacheAspect" parent="ssaContext" />
+
+</beans>
