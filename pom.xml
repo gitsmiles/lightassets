@@ -30,6 +30,7 @@
   <modules>
     <module>lightaop</module>
     <module>ssa-memcached</module>
+	<module>lightTemplate</module>
   </modules>
   
   
