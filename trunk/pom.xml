@@ -20,7 +20,7 @@
   		</activation>
   		<modules>
   			<module>ssa-memcached</module>
-  			<module>lightaop</module>
+  			<module>light-aop</module>
 			<module>light-template</module>
   		</modules>
   	</profile>
@@ -28,7 +28,7 @@
   
   
   <modules>
-    <module>lightaop</module>
+    <module>light-aop</module>
     <module>ssa-memcached</module>
 	<module>light-template</module>
   </modules>
