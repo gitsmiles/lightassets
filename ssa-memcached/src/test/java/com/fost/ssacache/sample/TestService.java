@@ -1,5 +1,10 @@
 package com.fost.ssacache.sample;
 
+/**
+ * 
+ * @author Janly
+ *
+ */
 public interface TestService {
 
 	
