@@ -12,19 +12,18 @@
            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
 <!-- aop:aspectj-autoproxy/ -->
-
-
-<bean id="cacheFactory" class="com.fost.ssacache.impl.CacheServiceCacheFactory" />
-
-<bean id="cacheKeyStoreStrategy" class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
-
-<bean id="cacheKeyProvider" class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
-	<property name="cacheKeyStoreStrategy" ref="cacheKeyStoreStrategy"></property>
-</bean>
-
 <bean id="ssaContext" abstract="true" class="com.fost.ssacache.SsaContext">
-	<property name="cacheFactory" ref="cacheFactory"></property>
-	<property name="cacheKeyProvider" ref="cacheKeyProvider"></property>
+	<property name="cacheFactory">
+	<bean id="cacheFactory" class="com.fost.ssacache.impl.CacheServiceCacheFactory" />
+	</property>
+	
+	<property name="cacheKeyProvider">
+	<bean id="cacheKeyProvider" class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
+  <property name="cacheKeyStoreStrategy">
+  <bean id="cacheKeyStoreStrategy" class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
+  </property>
+  </bean>
+  </property>
 </bean>
 
 <bean id="readFromCacheAspect" class="com.fost.ssacache.aspect.ReadFromCacheAspect" parent="ssaContext" />
