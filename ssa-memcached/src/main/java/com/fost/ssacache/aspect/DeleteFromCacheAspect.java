@@ -6,6 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Pointcut;
 
 import com.fost.ssacache.AnnotationContext;
+import com.fost.ssacache.Cache;
 import com.fost.ssacache.SsaContext;
 import com.fost.ssacache.annotation.DeleteFromCache;
 
@@ -22,13 +23,15 @@ public class DeleteFromCacheAspect extends SsaContext{
 	@org.aspectj.lang.annotation.Around("deleteCache()")
 	public Object deleteFromCache(final ProceedingJoinPoint pjp) throws Throwable {
 		AnnotationContext annotationContext=null;
+		Cache cache=null;
 		try {
 			annotationContext =buildAnnotationContext(pjp,DeleteFromCache.class);
             final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
+            cache=this.getCacheFactory().createCache(annotationContext);
             if(annotationContext.isNoreply()){
-            	this.getCacheFactory().createCache(annotationContext).deleteWithNoReply(cacheKey);
+            	cache.deleteWithNoReply(cacheKey);
             }else{
-            	this.getCacheFactory().createCache(annotationContext).delete(cacheKey, annotationContext.getTimeOut());
+            	cache.delete(cacheKey, annotationContext.getTimeOut());
             }
 		} catch (Throwable ex) {
 			logger.warn(ex.getMessage());
