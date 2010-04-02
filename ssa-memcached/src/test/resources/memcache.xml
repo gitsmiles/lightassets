@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<memcache>
+  <cluster name="categoryCache" useBinaryProtocol="n" useHessianSerializer="y" useConsistentHash="y" useCompress="n">
+    <server host="192.168.129.57:11211" />
+  </cluster>
+</memcache>
