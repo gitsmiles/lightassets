@@ -18,11 +18,11 @@ import com.fost.ssacache.annotation.AddToCache;
 public class AddToCacheAspect extends SsaContext{
 	private static final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(AddToCacheAspect.class);
 
-	@Pointcut("@annotation(com.fost.category.ssacache.annotation.AddToCache)")
-	public void add() {}
+	@Pointcut("@annotation(com.fost.ssacache.annotation.AddToCache)")
+	public void addCache(){}
 	
-	@org.aspectj.lang.annotation.Around("add()")
-	public Object addCache(final ProceedingJoinPoint pjp) throws Throwable {
+	@org.aspectj.lang.annotation.Around("addCache()")
+	public Object addToCache(final ProceedingJoinPoint pjp) throws Throwable {
 		Object result=null;
 		try {
 			result = pjp.proceed();

@@ -18,10 +18,10 @@ import com.fost.ssacache.annotation.GetFromCache;
 @org.aspectj.lang.annotation.Aspect
 public final class GetFromCacheAspect extends SsaContext{
 	private static final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(GetFromCacheAspect.class);
-	@Pointcut("@annotation(com.fost.category.ssacache.annotation.GetFromCache)")
-	public void get() {}
+	@Pointcut("@annotation(com.fost.ssacache.annotation.GetFromCache)")
+	public void getCache(){}
 	
-	@org.aspectj.lang.annotation.Around("get()")
+	@org.aspectj.lang.annotation.Around("getCache()")
 	public Object getFromCache(final ProceedingJoinPoint pjp) throws Throwable {
 		Object result=null;
 		try {

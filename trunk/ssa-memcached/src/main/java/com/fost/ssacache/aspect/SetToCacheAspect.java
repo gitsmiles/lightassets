@@ -17,10 +17,10 @@ import com.fost.ssacache.annotation.SetToCache;
 @org.aspectj.lang.annotation.Aspect
 public class SetToCacheAspect extends SsaContext{
 	private static final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(SetToCacheAspect.class);
-	@Pointcut("@annotation(com.fost.category.ssacache.annotation.SetToCache)")
-	public void set() {}
+	@Pointcut("@annotation(com.fost.ssacache.annotation.SetToCache)")
+	public void setCache(){}
 	
-	@org.aspectj.lang.annotation.Around("set()")
+	@org.aspectj.lang.annotation.Around("setCache()")
 	public Object setToCache(final ProceedingJoinPoint pjp) throws Throwable {
 		Object result=null;
 		try {
