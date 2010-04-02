@@ -6,6 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Pointcut;
 
 import com.fost.ssacache.AnnotationContext;
+import com.fost.ssacache.Cache;
 import com.fost.ssacache.NullValue;
 import com.fost.ssacache.SsaContext;
 import com.fost.ssacache.annotation.GetFromCache;
@@ -24,10 +25,12 @@ public final class GetFromCacheAspect extends SsaContext{
 	@org.aspectj.lang.annotation.Around("getCache()")
 	public Object getFromCache(final ProceedingJoinPoint pjp) throws Throwable {
 		Object result=null;
+		Cache cache=null;
 		try {
 			final AnnotationContext annotationContext =buildAnnotationContext(pjp,GetFromCache.class);
 			final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-			result = this.getCacheFactory().createCache(annotationContext).get(cacheKey, annotationContext.getTimeOut());
+			cache=this.getCacheFactory().createCache(annotationContext);
+			result = cache.get(cacheKey, annotationContext.getTimeOut());
 			if(annotationContext.isInvoke()) pjp.proceed();
 		} catch (Throwable ex) {
 			logger.warn(ex.getMessage());

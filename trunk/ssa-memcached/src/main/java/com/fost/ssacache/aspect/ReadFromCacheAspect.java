@@ -5,6 +5,7 @@ package com.fost.ssacache.aspect;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Pointcut;
 import com.fost.ssacache.AnnotationContext;
+import com.fost.ssacache.Cache;
 import com.fost.ssacache.NullValue;
 import com.fost.ssacache.SsaContext;
 import com.fost.ssacache.annotation.ReadFromCache;
@@ -25,10 +26,13 @@ public final class ReadFromCacheAspect extends SsaContext{
 		String cacheKey=null;
 		AnnotationContext annotationContext=null;
 		Object result=null;
+		Cache cache=null;
 		try {
             annotationContext =buildAnnotationContext(pjp,ReadFromCache.class);
 			cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-			result= this.getCacheFactory().createCache(annotationContext).get(cacheKey,annotationContext.getTimeOut());
+			cache= this.getCacheFactory().createCache(annotationContext);
+			result= cache.get(cacheKey,annotationContext.getTimeOut());
+			
 			if (result != null) {
 				return (result instanceof NullValue) ? null : result;
 			}
@@ -38,9 +42,9 @@ public final class ReadFromCacheAspect extends SsaContext{
 		result = pjp.proceed();
 		try {
             if(annotationContext.isNoreply()){
-            	this.getCacheFactory().createCache(annotationContext).addWithNoReply(cacheKey, annotationContext.getExpiration(), result==null?new NullValue():result);
+            	cache.addWithNoReply(cacheKey, annotationContext.getExpiration(), result==null?new NullValue():result);
             }else{
-    		    this.getCacheFactory().createCache(annotationContext).add(cacheKey, annotationContext.getExpiration(), result==null?new NullValue():result,annotationContext.getTimeOut());
+            	cache.add(cacheKey, annotationContext.getExpiration(), result==null?new NullValue():result,annotationContext.getTimeOut());
             }
 		} catch (Throwable ex) {
 		}

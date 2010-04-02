@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface AddToCache {
 	
-	public String cacheName() default "categoryCache";
+	public String cacheName() default "";
 
 	public String namespace() default "root";
 	

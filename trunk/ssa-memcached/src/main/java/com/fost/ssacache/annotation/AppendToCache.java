@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AppendToCache {
-	public String cacheName() default "categoryCache";
+	public String cacheName() default "";
 
 	public String namespace() default "root";
 	
