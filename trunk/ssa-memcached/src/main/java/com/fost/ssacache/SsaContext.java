@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 
 import com.fost.ssacache.annotation.CacheKey;
+import com.fost.ssacache.parser.ParserFactory;
 
 /**
  * @author Janly
@@ -48,81 +49,30 @@ public abstract class SsaContext implements org.springframework.context.Applicat
     		populateAnnotation(data, annotation, expectedAnnotationClass, mh.getName());
     		populateParamIndex(data,jp, CacheKey.class, mh);
     	}catch(java.lang.Throwable t){
-    		throw new java.lang.RuntimeException("parse annotation fail");
+    		throw new java.lang.RuntimeException(t.getMessage());
     	}
     	return data;
     }
     
     
     
-    protected static void populateClassName(final AnnotationContext data,
-			final Annotation annotation, final Class<?> expectedAnnotationClass) {
+    protected static void populateClassName(final AnnotationContext data,final Annotation annotation, final Class<?> expectedAnnotationClass) {
 		if (annotation == null) {
-			throw new InvalidParameterException(String.format(
-					"No annotation of type [%s] found.",
-					expectedAnnotationClass.getName()));
+			throw new InvalidParameterException(String.format("No annotation of type [%s] found.",expectedAnnotationClass.getName()));
 		}
 
 		final Class<?> clazz = annotation.annotationType();
 		if (!expectedAnnotationClass.equals(clazz)) {
-			throw new InvalidParameterException(
-					String
-							.format(
-									"No annotation of type [%s] found, class was of type [%s].",
-									expectedAnnotationClass.getName(), clazz
-											.getName()));
+			throw new InvalidParameterException(String.format("No annotation of type [%s] found, class was of type [%s].",expectedAnnotationClass.getName(), clazz.getName()));
 		}
 		data.setClassName(clazz.getName());
+		
+		
+		
 	}
     
-    protected static void populateAnnotation(final AnnotationContext data,
-			final Annotation annotation, final Class<?> expectedAnnotationClass,
-			final String targetMethodName) throws NoSuchMethodException,
-			IllegalAccessException, InvocationTargetException {
-    	
-		final Method cacheNameMethod = expectedAnnotationClass.getDeclaredMethod("cacheName", new Class[]{});
-		final String cacheName = (String)cacheNameMethod.invoke(annotation,new Object[]{});
-		data.setCacheName(cacheName);
-		
-    	
-		final Method namespaceMethod = expectedAnnotationClass.getDeclaredMethod("namespace", new Class[]{});
-		final String namespace = (String) namespaceMethod.invoke(annotation,new Object[]{});
-		data.setNamespace(namespace);
-		
-        final Method assignKeyMethod = expectedAnnotationClass.getDeclaredMethod("assignedKey", new Class[]{});
-        final String assignKey = (String) assignKeyMethod.invoke(annotation, new Object[]{});
-        data.setAssignedKey(assignKey);
-        
-        final Method expirationMethod = expectedAnnotationClass.getDeclaredMethod("expiration", new Class[]{});
-        final int expiration = (Integer) expirationMethod.invoke(annotation, new Object[]{});
-        if (expiration < 0) {
-            throw new InvalidParameterException(String.format(
-                    "Expiration for annotation [%s] must be 0 or greater on [%s]",
-                    expectedAnnotationClass.getName(),
-                    targetMethodName
-            ));
-        }
-        data.setExpiration(expiration);
-        
-        final Method timeoutMethod = expectedAnnotationClass.getDeclaredMethod("timeout", new Class[]{});
-        final int timeout = (Integer) timeoutMethod.invoke(annotation, new Object[]{});
-        if (timeout < 0) {
-            throw new InvalidParameterException(String.format(
-                    "Timeout for annotation [%s] must be 0 or greater on [%s]",
-                    expectedAnnotationClass.getName(),
-                    targetMethodName
-            ));
-        }
-        data.setTimeOut(timeout);
-        
-		final Method noreplyMethod = expectedAnnotationClass.getDeclaredMethod("noreply", new Class[]{});
-		final Boolean noreply = (Boolean)noreplyMethod.invoke(annotation,new Object[]{});
-		data.setNoreply(noreply);
-		
-		final Method invokeMethod = expectedAnnotationClass.getDeclaredMethod("invoke", new Class[]{});
-		final Boolean invoke = (Boolean)invokeMethod.invoke(annotation,new Object[]{});
-		data.setInvoke(invoke);
-        
+    protected static void populateAnnotation(final AnnotationContext data,final Annotation annotation, final Class<?> expectedAnnotationClass,final String targetMethodName) throws Exception{
+    	ParserFactory.createParser(expectedAnnotationClass).parse(data, annotation, expectedAnnotationClass, targetMethodName);  
 	}
     
     
