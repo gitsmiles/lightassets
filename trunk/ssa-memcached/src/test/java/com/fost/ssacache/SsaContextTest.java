@@ -1,6 +1,11 @@
 package com.fost.ssacache;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Janly
+ *
+ */
 public class SsaContextTest {
 
 	@Test
