@@ -16,10 +16,10 @@ import com.fost.ssacache.annotation.DeleteFromCache;
 @org.aspectj.lang.annotation.Aspect
 public class DeleteFromCacheAspect extends SsaContext{
 	private static final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(DeleteFromCacheAspect.class);
-	@Pointcut("@annotation(com.fost.category.ssacache.annotation.DeleteFromCache)")
-	public void delete() {}
+	@Pointcut("@annotation(com.fost.ssacache.annotation.DeleteFromCache)")
+	public void deleteCache(){}
 	
-	@org.aspectj.lang.annotation.Around("delete()")
+	@org.aspectj.lang.annotation.Around("deleteCache()")
 	public Object deleteFromCache(final ProceedingJoinPoint pjp) throws Throwable {
 		AnnotationContext annotationContext=null;
 		try {

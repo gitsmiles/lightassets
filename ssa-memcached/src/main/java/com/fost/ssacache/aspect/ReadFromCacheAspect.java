@@ -17,11 +17,11 @@ import com.fost.ssacache.annotation.ReadFromCache;
 @org.aspectj.lang.annotation.Aspect
 public final class ReadFromCacheAspect extends SsaContext{
 	private static final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(ReadFromCacheAspect.class);
-	@Pointcut("@annotation(com.fost.category.ssacache.annotation.ReadFromCache)")
-	public void read() {}
+	@Pointcut("@annotation(com.fost.ssacache.annotation.ReadFromCache)")
+	public void readCache(){}
 	
-	@org.aspectj.lang.annotation.Around("read()")
-	public Object readCache(final ProceedingJoinPoint pjp) throws Throwable {
+	@org.aspectj.lang.annotation.Around("readCache()")
+	public Object readFromCache(final ProceedingJoinPoint pjp) throws Throwable {
 		String cacheKey=null;
 		AnnotationContext annotationContext=null;
 		Object result=null;
