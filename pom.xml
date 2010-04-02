@@ -21,6 +21,7 @@
   		<modules>
   			<module>ssa-memcached</module>
   			<module>lightaop</module>
+			<module>lightTemplate</module>
   		</modules>
   	</profile>
   </profiles>
