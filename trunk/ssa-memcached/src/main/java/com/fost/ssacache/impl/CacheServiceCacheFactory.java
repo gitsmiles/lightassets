@@ -30,10 +30,6 @@ public class CacheServiceCacheFactory implements CacheFactory,org.springframewor
 		return cacheServiceCache;
 	}
 
-	public final ApplicationContext getApplicationContext() {
-		return applicationContext;
-	}
-
 	public final void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
