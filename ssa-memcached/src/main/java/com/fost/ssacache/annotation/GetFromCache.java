@@ -16,10 +16,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface GetFromCache{
 	public String cacheName() default "categoryCache";
-	
+
 	public String namespace() default "root";
-	
-	public int expiration() default 0;
 	
 	public int timeout() default 0;
 	
