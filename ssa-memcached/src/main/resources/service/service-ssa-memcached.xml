@@ -19,12 +19,13 @@
 <bean id="cacheKeyStoreStrategy" class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
 
 <bean id="cacheKeyProvider" class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
-	<property name="cacheKeyStoreStrategy" ref="cacheKeyStoreStrategy"></property></bean>
+	<property name="cacheKeyStoreStrategy" ref="cacheKeyStoreStrategy"></property>
+</bean>
 
 <bean id="ssaContext" abstract="true" class="com.fost.ssacache.SsaContext">
 	<property name="cacheFactory" ref="cacheFactory"></property>
 	<property name="cacheKeyProvider" ref="cacheKeyProvider"></property>
-	</bean>
+</bean>
 
 <bean id="readFromCacheAspect" class="com.fost.ssacache.aspect.ReadFromCacheAspect" parent="ssaContext" />
 <bean id="getFromCacheAspect" class="com.fost.ssacache.aspect.GetFromCacheAspect" parent="ssaContext" />
@@ -32,6 +33,6 @@
 <bean id="addToCacheAspect" class="com.fost.ssacache.aspect.AddToCacheAspect" parent="ssaContext" />
 <bean id="setToCacheAspect" class="com.fost.ssacache.aspect.SetToCacheAspect" parent="ssaContext" />
 
-<bean id="DeleteFromCacheAspect" class="com.fost.ssacache.aspect.DeleteFromCacheAspect" parent="ssaContext" />
+<bean id="deleteFromCacheAspect" class="com.fost.ssacache.aspect.DeleteFromCacheAspect" parent="ssaContext" />
 
 </beans>
