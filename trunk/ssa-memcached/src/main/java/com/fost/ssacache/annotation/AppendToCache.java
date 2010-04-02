@@ -17,18 +17,15 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface AppendToCache {
-	
 	public String cacheName() default "categoryCache";
-	
-	
+
 	public String namespace() default "root";
-	
-	public int expiration() default 0;
 	
 	public int timeout() default 0;
 	
 	public boolean noreply() default true;
 	
 	public String assignedKey() default "";
+
 
 }
