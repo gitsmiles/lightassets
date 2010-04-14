@@ -4,8 +4,6 @@
 package com.fost.ssacache.key;
 
 import java.lang.reflect.Method;
-import org.springframework.beans.factory.annotation.Qualifier;
-
 import com.fost.ssacache.annotation.CacheKey;
 import com.fost.ssacache.AnnotationContext;
 import com.fost.ssacache.CacheKeyStoreStrategy;
@@ -30,9 +28,7 @@ public final class DefaultCacheKeyProvider implements CacheKeyProvider{
 	}
 	
 	
-	@org.springframework.beans.factory.annotation.Autowired
-	public final void setCacheKeyStoreStrategy(
-			@Qualifier("cacheKeyStoreStrategy") CacheKeyStoreStrategy cacheKeyStoreStrategy) {
+	public final void setCacheKeyStoreStrategy(CacheKeyStoreStrategy cacheKeyStoreStrategy) {
 		this.cacheKeyStoreStrategy = cacheKeyStoreStrategy;
 	}
 

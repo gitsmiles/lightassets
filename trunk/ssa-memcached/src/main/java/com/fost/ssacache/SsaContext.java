@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.InvalidParameterException;
 import org.aspectj.lang.JoinPoint;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 
 import com.fost.ssacache.annotation.CacheKey;
@@ -24,7 +23,7 @@ public abstract class SsaContext implements org.springframework.context.Applicat
 	
     @Override
 	public void afterPropertiesSet() throws Exception {
-    	logger.info("init...."+this.getClass().getName());
+    	
 
 	}
     
@@ -121,8 +120,7 @@ public abstract class SsaContext implements org.springframework.context.Applicat
 		return cacheFactory;
 	}
 
-	@org.springframework.beans.factory.annotation.Autowired
-	public final void setCacheFactory(@Qualifier("cacheFactory") CacheFactory cacheFactory) {
+	public final void setCacheFactory(CacheFactory cacheFactory) {
 		this.cacheFactory = cacheFactory;
 	}
 
@@ -133,8 +131,7 @@ public abstract class SsaContext implements org.springframework.context.Applicat
 	}
 
 
-	@org.springframework.beans.factory.annotation.Autowired
-	public final void setCacheKeyProvider(@Qualifier("cacheKeyProvider") CacheKeyProvider cacheKeyProvider) {
+	public final void setCacheKeyProvider(CacheKeyProvider cacheKeyProvider) {
 		this.cacheKeyProvider = cacheKeyProvider;
 	}
 
