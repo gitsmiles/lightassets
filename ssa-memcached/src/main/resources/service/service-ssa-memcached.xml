@@ -14,15 +14,15 @@
 <!-- aop:aspectj-autoproxy/ -->
 <bean id="ssaContext" abstract="true" class="com.fost.ssacache.SsaContext">
 	<property name="cacheFactory">
-	<bean id="cacheFactory" class="com.fost.ssacache.impl.CacheServiceCacheFactory" />
+	<bean class="com.fost.ssacache.impl.CacheServiceCacheFactory" />
 	</property>
 	
 	<property name="cacheKeyProvider">
-	<bean id="cacheKeyProvider" class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
-  <property name="cacheKeyStoreStrategy">
-  <bean id="cacheKeyStoreStrategy" class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
-  </property>
-  </bean>
+				<bean class="com.fost.ssacache.key.DefaultCacheKeyProvider" >
+							  <property name="cacheKeyStoreStrategy">
+							    <bean class="com.fost.ssacache.key.DefaultCacheKeyStoreStrategy" />
+							  </property>
+			  </bean>
   </property>
 </bean>
 

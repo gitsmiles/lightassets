@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 public interface Cache {
 
 
-	public abstract <T> T get(final String key, final long timeout) throws TimeoutException, InterruptedException;
+	public abstract Object get(final String key, final long timeout) throws TimeoutException, InterruptedException;
 
 
 	public abstract boolean set(final String key, final int exp,final Object value, final long timeout) throws TimeoutException,InterruptedException;

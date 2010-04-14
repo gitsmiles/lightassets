@@ -41,7 +41,7 @@ public class SpyMemcachedCache implements Cache{
 	}
 
 	@Override
-	public <T> T get(String key, long timeout) throws TimeoutException,
+	public Object get(String key, long timeout) throws TimeoutException,
 			InterruptedException {
 		
 		return null;
