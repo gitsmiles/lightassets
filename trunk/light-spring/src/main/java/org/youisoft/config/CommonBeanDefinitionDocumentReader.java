@@ -55,43 +55,42 @@ public class CommonBeanDefinitionDocumentReader implements BeanDefinitionDocumen
 					}
 
 				}else{
+					BeanDefinition bd=null;
 					try{
-						BeanDefinition bd=handler.parse(ele, parserContext);
-						if(bd!=null){
-							chd=new CompositeHolderDefinition(ele.getTagName(),parserContext.extractSource(ele));
-							String id = ele.getAttribute(ID_ATTRIBUTE);
-							String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
-
-							List aliases = new ArrayList();
-							if (StringUtils.hasLength(nameAttr)) {
-								String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, BEAN_NAME_DELIMITERS);
-								aliases.addAll(Arrays.asList(nameArr));
-							}
-
-							String beanName = id;
-							if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
-								beanName = (String) aliases.remove(0);
-							}
-							
-							if (!StringUtils.hasText(beanName)) {
-								beanName = parserContext.getReaderContext().generateBeanName(bd);
-								String beanClassName = bd.getBeanClassName();
-								if (beanClassName != null &&beanName.startsWith(beanClassName) && beanName.length() > beanClassName.length() &&
-										!parserContext.getReaderContext().getRegistry().isBeanNameInUse(beanClassName)) {
-									aliases.add(beanClassName);
-								}
-							}
-							
-							String[] aliasesArray = StringUtils.toStringArray(aliases);
-							BeanDefinitionHolder temp=new BeanDefinitionHolder(bd, beanName, aliasesArray);
-							chd.addBeanDefinitionHolder(temp);
-							
-						}
+						bd=handler.parse(ele, parserContext);
 					}catch(java.lang.Throwable t){
 						//no opration 
 					}
+					if(bd!=null){
+						chd=new CompositeHolderDefinition(ele.getTagName(),parserContext.extractSource(ele));
+						String id = ele.getAttribute(ID_ATTRIBUTE);
+						String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
 
+						List aliases = new ArrayList();
+						if (StringUtils.hasLength(nameAttr)) {
+							String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, BEAN_NAME_DELIMITERS);
+							aliases.addAll(Arrays.asList(nameArr));
+						}
 
+						String beanName = id;
+						if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
+							beanName = (String) aliases.remove(0);
+						}
+						
+						if (!StringUtils.hasText(beanName)) {
+							beanName = parserContext.getReaderContext().generateBeanName(bd);
+							String beanClassName = bd.getBeanClassName();
+							if (beanClassName != null &&beanName.startsWith(beanClassName) && beanName.length() > beanClassName.length() &&
+									!parserContext.getReaderContext().getRegistry().isBeanNameInUse(beanClassName)) {
+								aliases.add(beanClassName);
+							}
+						}
+						
+						String[] aliasesArray = StringUtils.toStringArray(aliases);
+						BeanDefinitionHolder temp=new BeanDefinitionHolder(bd, beanName, aliasesArray);
+						chd.addBeanDefinitionHolder(temp);
+						
+					}
 				}
 			}
 			
