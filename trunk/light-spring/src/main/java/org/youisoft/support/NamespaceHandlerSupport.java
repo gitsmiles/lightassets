@@ -24,8 +24,13 @@ public abstract class NamespaceHandlerSupport extends org.springframework.beans.
 	
 	public HolderDefinition parseHolder(Element element,ParserContext parserContext) {
 		HolderDefinitionParser parser=findParserForElement(element, parserContext);
-		if(parser!=null) parser.parse(element, parserContext);
-		return null;
+		if (parser == null) {
+			parserContext.getReaderContext().warning("Cannot locate HolderDefinitionParser for element [" + element.getLocalName() + "]", element);
+			return null;
+		}else{
+			return parser.parse(element, parserContext);
+		}
+		
 	}
 	
 	protected final void registerHolderDefinitionParser(String elementName, HolderDefinitionParser parser) {
