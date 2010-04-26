@@ -10,6 +10,13 @@ import org.w3c.dom.Element;
 public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
+		
+		Object source=parserContext.extractSource(element);
+		org.springframework.beans.factory.parsing.CompositeComponentDefinition ccd=
+			new org.springframework.beans.factory.parsing.CompositeComponentDefinition(element.getTagName(),source);
+		
+		parserContext.pushContainingComponent(ccd);
+		
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.SsaContext.class);
 		beanDefinition.setAbstract(true);
@@ -17,9 +24,22 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 		for(java.util.Iterator<PropertyValue> it=pv.iterator();it.hasNext();){
 			beanDefinition.getPropertyValues().addPropertyValue(it.next());
 		}
-		parserContext.getRegistry().registerBeanDefinition("ssaContext", beanDefinition);
+		
+		org.springframework.beans.factory.config.BeanDefinitionHolder bdh=
+			new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"ssaContext");
+		
+		org.springframework.beans.factory.parsing.BeanComponentDefinition bcd=
+			new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		
+		
+		parserContext.registerBeanComponent(bcd);
+		
 		
 		this.parseSsaContextSubDefinition("ssaContext", parserContext);
+		
+		
+		parserContext.popAndRegisterContainingComponent();
+		
 		return null;
 	}
 	
@@ -28,36 +48,48 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 	
 	public void parseSsaContextSubDefinition(String parentName, ParserContext parserContext) {
 		GenericBeanDefinition beanDefinition=null;
+		org.springframework.beans.factory.config.BeanDefinitionHolder bdh=null;
+		org.springframework.beans.factory.parsing.BeanComponentDefinition bcd=null;
 		
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.aspect.ReadFromCacheAspect.class);
 		beanDefinition.setParentName(parentName);
-		parserContext.getRegistry().registerBeanDefinition("readFromCacheAspect", beanDefinition);
+		bdh=new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"readFromCacheAspect");
+		bcd=new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		parserContext.registerBeanComponent(bcd);
 		
-		
+
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.aspect.GetFromCacheAspect.class);
 		beanDefinition.setParentName(parentName);
-		parserContext.getRegistry().registerBeanDefinition("getFromCacheAspect", beanDefinition);
+		bdh=new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"getFromCacheAspect");
+		bcd=new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		parserContext.registerBeanComponent(bcd);
 		
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.aspect.AddToCacheAspect.class);
 		beanDefinition.setParentName(parentName);
-		parserContext.getRegistry().registerBeanDefinition("addToCacheAspect", beanDefinition);
+		bdh=new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"addToCacheAspect");
+		bcd=new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		parserContext.registerBeanComponent(bcd);
 		
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.aspect.SetToCacheAspect.class);
 		beanDefinition.setParentName(parentName);
-		parserContext.getRegistry().registerBeanDefinition("setToCacheAspect", beanDefinition);
+		bdh=new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"setToCacheAspect");
+		bcd=new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		parserContext.registerBeanComponent(bcd);
 		
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.aspect.DeleteFromCacheAspect.class);
 		beanDefinition.setParentName(parentName);
-		parserContext.getRegistry().registerBeanDefinition("deleteFromCacheAspect", beanDefinition);
+		bdh=new org.springframework.beans.factory.config.BeanDefinitionHolder(beanDefinition,"deleteFromCacheAspect");
+		bcd=new org.springframework.beans.factory.parsing.BeanComponentDefinition(bdh);
+		parserContext.registerBeanComponent(bcd);
 		
 	}
 }
