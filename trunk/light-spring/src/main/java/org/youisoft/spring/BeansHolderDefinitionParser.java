@@ -14,8 +14,8 @@ import org.youisoft.HolderDefinitionParser;
  */
 public class BeansHolderDefinitionParser implements HolderDefinitionParser{
 
-	public HolderDefinition parse(Element root, ParserContext parserContext) {
-		parserContext.getDelegate().initDefaults(root);
+	public HolderDefinition parse(Element element, ParserContext parserContext) {
+		parserContext.getDelegate().initDefaults(element);
 		return null;
 	}
 }
