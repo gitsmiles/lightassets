@@ -3,22 +3,21 @@
  */
 package org.youisoft.spring;
 
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.StringUtils;
 import org.w3c.dom.Element;
-import org.youisoft.HolderDefinition;
-import org.youisoft.HolderDefinitionParser;
 
 /**
  * @author Janly
  *
  */
-public class AliasHolderDefinitionParser implements HolderDefinitionParser {
+public class AliasBeanDefinitionParser extends AbstractLightBeanDefinitionParser{
 	public static final String ALIAS_ELEMENT = "alias";
 	public static final String NAME_ATTRIBUTE = "name";
 	public static final String ALIAS_ATTRIBUTE = "alias";
 
-	public HolderDefinition parse(Element element, ParserContext parserContext) {
+	public BeanDefinition parseInternal(Element element, ParserContext parserContext) {
 		String name = element.getAttribute(NAME_ATTRIBUTE);
 		String alias = element.getAttribute(ALIAS_ATTRIBUTE);
 		boolean valid = true;
