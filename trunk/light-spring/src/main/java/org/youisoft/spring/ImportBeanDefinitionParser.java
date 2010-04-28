@@ -8,24 +8,23 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.BeanDefinitionStoreException;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.util.SystemPropertyUtils;
 import org.w3c.dom.Element;
-import org.youisoft.HolderDefinition;
-import org.youisoft.HolderDefinitionParser;
 
 /**
  * @author Janly
  *
  */
-public class ImportHolderDefinitionParser implements HolderDefinitionParser {
+public class ImportBeanDefinitionParser extends AbstractLightBeanDefinitionParser{
 	public static final String IMPORT_ELEMENT = "import";
 	public static final String RESOURCE_ATTRIBUTE = "resource";
 
-	public HolderDefinition parse(Element element, ParserContext parserContext) {
+	public BeanDefinition parseInternal(Element element, ParserContext parserContext) {
 		String location = element.getAttribute(RESOURCE_ATTRIBUTE);
 		if (!StringUtils.hasText(location)) {
 			parserContext.getReaderContext().error("Resource location must not be empty", element);

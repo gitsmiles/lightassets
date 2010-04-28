@@ -3,7 +3,8 @@
  */
 package org.youisoft.spring;
 
-import org.youisoft.support.NamespaceHandlerSupport;
+import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
+
 
 /**
  * @author Janly
@@ -16,10 +17,10 @@ public class BeansNamespaceHandler extends NamespaceHandlerSupport {
 	private static final String ALIAS="alias";
 
 	public void init() {
-		this.registerHolderDefinitionParser(BEANS, new BeansHolderDefinitionParser());
-		this.registerHolderDefinitionParser(BEAN, new BeanHolderDefinitionParser());
-		this.registerHolderDefinitionParser(IMPORT, new ImportHolderDefinitionParser());
-		this.registerHolderDefinitionParser(ALIAS, new AliasHolderDefinitionParser());
+		this.registerBeanDefinitionParser(BEANS, new BeansBeanDefinitionParser());
+		this.registerBeanDefinitionParser(BEAN, new BeanBeanDefinitionParser());
+		this.registerBeanDefinitionParser(IMPORT, new ImportBeanDefinitionParser());
+		this.registerBeanDefinitionParser(ALIAS, new AliasBeanDefinitionParser());
 	}
 
 }
