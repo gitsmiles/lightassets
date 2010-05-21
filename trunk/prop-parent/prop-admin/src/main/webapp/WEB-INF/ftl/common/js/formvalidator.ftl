@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<@website.static/>/baportal/js/jquery.formvalidator.js"></script> 

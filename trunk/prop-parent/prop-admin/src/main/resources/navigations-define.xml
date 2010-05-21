@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system name="prop">
+  <module name="system-menu" show-name="参数服务">
+     <menu name="prop_admin" show-name="参数服务" url="/" rights="node" />
+     <menu name="opLog" show-name="日志查询" url="/log!find" rights="opLog" />
+  </module>
+</system>
