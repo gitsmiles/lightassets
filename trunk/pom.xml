@@ -30,9 +30,11 @@
   
   
   <modules>
-    <module>light-aop</module>
-    <module>ssa-memcached</module>
-	<module>light-template</module>
+        <module>ssa-memcached</module>
+        <module>light-aop</module>
+        <module>light-spring</module>
+        <module>light-template</module>
+        <module>prop-parent</module>
   </modules>
   
   
