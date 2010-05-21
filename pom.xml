@@ -22,7 +22,7 @@
   			<module>ssa-memcached</module>
   			<module>light-aop</module>
   			<module>light-spring</module>
-			  <module>light-template</module>
+			<module>light-template</module>
   		</modules>
   	</profile>
   </profiles>
