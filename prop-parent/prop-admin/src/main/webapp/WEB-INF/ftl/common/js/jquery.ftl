@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<@website.static/>/baportal/js/jquery-1.3.2.js"></script> 

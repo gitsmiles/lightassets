@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<memcache>
+  <cluster name="uumcache" useBinaryProtocol="n" useHessianSerializer="y" useConsistentHash="y" useCompress="n">
+    <server host="${uum.share.memcache.servers.cluster}" />
+  </cluster>
+</memcache>

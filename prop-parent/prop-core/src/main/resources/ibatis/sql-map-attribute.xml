@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap PUBLIC
+    "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap>
+  <typeAlias alias="attribute" type="com.fost.prop.api.model.Attribute" />
+
+  <resultMap id="attribute" class="attribute">
+    <result property="id" column="id" />
+    <result property="key" column="name" />
+    <result property="value" column="value" />
+    <result property="value1" column="value1" />
+    <result property="value2" column="value2" />
+    <result property="value3" column="value3" />
+    <result property="value4" column="value4" />
+    <result property="value5" column="value5" />
+    <result property="sorting" column="sorting" />
+    <result property="nodeId" column="node_id" />
+    <result property="appId" column="root_id" />
+    <result property="memo" column="memo" />
+    <result property="createAt" column="created_at" />
+    <result property="updatedAt" column="updated_at" />
+  </resultMap>
+
+  <insert id="AttributeDao.insertAttribute" parameterClass="attribute">
+    insert into prop_attribute (
+      id,
+      name,
+      value,
+      value1,
+      value2,
+      value3,
+      value4,
+      value5,
+      sorting,
+      node_id,
+      root_id,
+      memo,
+      created_at,
+      updated_at
+    ) values (
+      #id#,
+      #key#,
+      #value#,
+      #value1#,
+      #value2#,
+      #value3#,
+      #value4#,
+      #value5#,
+      #sorting#,
+      #nodeId#,
+      #appId#,
+      #memo#,
+      sysdate,
+      sysdate
+    )
+  </insert>
+
+  <select id="AttributeDao.findAttribute" parameterClass="int" resultMap="attribute">
+    select
+      id,
+      name,
+      value,
+      value1,
+      value2,
+      value3,
+      value4,
+      value5,
+      sorting,
+      node_id,
+      root_id,
+      memo,
+      created_at,
+      updated_at
+    from prop_attribute where id = #id#
+  </select>
+
+  <update id="AttributeDao.updateAttribute" parameterClass="attribute">
+    update prop_attribute set
+      name = #key#,
+      value = #value#,
+      value1 = #value1#,
+      value2 = #value2#,
+      value3 = #value3#,
+      value4 = #value4#,
+      value5 = #value5#,
+      sorting = #sorting#,
+      node_id = #nodeId#,
+      root_id = #appId#,
+      memo = #memo#,
+      updated_at = sysdate
+    where id = #id#
+  </update>
+
+  <delete id="AttributeDao.deleteAttribute" parameterClass="int">
+    delete from prop_attribute where id = #id#
+  </delete>
+
+  <select id="AttributeDao.findAttributesByNodeId" parameterClass="int" resultMap="attribute">
+    select
+      id,
+      name,
+      value,
+      value1,
+      value2,
+      value3,
+      value4,
+      value5,
+      sorting,
+      node_id,
+      root_id,
+      memo,
+      created_at,
+      updated_at
+    from prop_attribute
+    where node_id = #nodeId#
+    order by sorting
+  </select>
+
+  <delete id="AttributeDao.deleteAttributesByNodeId" parameterClass="int">
+    delete from prop_attribute where node_id = #nodeId#
+  </delete>
+
+  <select id="AttributeDao.getAttributeId" resultClass="int">
+    select s_prop_attribute.nextval from dual
+  </select>
+
+  <select id="AttributeDao.getMaxSorting" resultClass="int">
+    select max(sorting) as maxId from prop_attribute
+  </select>
+
+  <select id="AttributeDao.findAll" resultMap="attribute">
+    select
+      id,
+      name,
+      value,
+      value1,
+      value2,
+      value3,
+      value4,
+      value5,
+      sorting,
+      node_id,
+      root_id,
+      memo,
+      created_at,
+      updated_at
+    from prop_attribute
+  </select>
+
+  <select id="AttributeDao.getUpID" parameterClass="attribute" resultMap="attribute">
+   <![CDATA[
+    select id, name, value, value1, value2, value3, value4, value5, sorting, node_id, root_id, memo, created_at, updated_at
+    from (select rowid
+          from prop_attribute
+          where node_id = #nodeId#
+          and sorting < #sorting#
+          order by sorting desc) t1, prop_attribute t2
+    where rownum <= 1 and t1.rowid = t2.rowid
+   ]]>
+   </select>
+
+  <select id="AttributeDao.getDownID" parameterClass="attribute" resultMap="attribute">
+  <![CDATA[
+    select id, name, value, value1, value2, value3, value4, value5, sorting, node_id, root_id, memo, created_at, updated_at
+    from (select rowid
+          from prop_attribute
+          where node_id = #nodeId#
+          and sorting > #sorting#
+          order by sorting asc) t1,
+          prop_attribute t2
+    where rownum <= 1
+    and t1.rowid = t2.rowid
+  ]]>
+  </select>
+</sqlMap>
