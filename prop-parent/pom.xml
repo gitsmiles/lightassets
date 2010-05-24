@@ -6,13 +6,13 @@
   <parent>
     <groupId>org.youisoft</groupId>
     <artifactId>lightassets</artifactId>
-    <version>1.0.1</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
-  <groupId>org.youisoft.prop</groupId>
+  <groupId>org.youisoft</groupId>
   <artifactId>prop-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.9.1</version>
-  <name>${project.artifactId} v${project.version}</name>
+  <version>1.0-SNAPSHOT</version>
+  <name>prop-parent</name>
 
   <modules>
     <module>prop-client</module>
@@ -21,89 +21,4 @@
     <module>prop-admin</module>
   </modules>
 
-  <properties>
-    <plugin.version.release>2.0-platina-1</plugin.version.release>
-    <ftools.version>0.8.3</ftools.version>
-    <uum.version>0.8.4</uum.version>
-    <webcommon.version>0.8.3</webcommon.version>
-    <jaxen.version>1.1-beta-6</jaxen.version>
-  </properties>
-
-  <scm>
-    <connection>scm:svn:http://fost.5173.com/svn/prop/trunk</connection>
-    <developerConnection>scm:svn:http://fost.5173.com/svn/prop/trunk</developerConnection>
-  </scm>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>com.capgemini.platina.maven</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${plugin.version.release}</version>
-        <configuration>
-          <goals>deploy</goals>
-          <autoversionsubmodules>true</autoversionsubmodules>
-        </configuration>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
-    <filters>
-      <filter>${user.home}/fost.properties</filter>
-    </filters>
-  </build>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>prop-client</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>prop-core</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>prop-esb</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>${pom.groupId}</groupId>
-        <artifactId>prop-admin</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>jaxen</groupId>
-        <artifactId>jaxen</artifactId>
-        <version>${jaxen.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fost.esb</groupId>
-        <artifactId>ftools</artifactId>
-        <version>${ftools.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fost.uum</groupId>
-        <artifactId>sso-client</artifactId>
-        <version>${uum.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fost.uum</groupId>
-        <artifactId>uum-client</artifactId>
-        <version>${uum.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fost</groupId>
-        <artifactId>webcommon</artifactId>
-        <version>${webcommon.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 </project>

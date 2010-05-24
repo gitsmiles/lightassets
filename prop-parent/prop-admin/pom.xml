@@ -4,66 +4,15 @@
 
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.fost.prop</groupId>
+    <groupId>org.youisoft</groupId>
     <artifactId>prop-parent</artifactId>
-    <version>0.9.1</version>
+    <version>1.0-SNAPSHOT</version>
   </parent>
+  <name>prop-admin</name>
+  <groupId>org.youisoft</groupId>
   <artifactId>prop-admin</artifactId>
+  <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>${project.artifactId} v${project.version}</name>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>prop-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-spring-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-convention-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-rest-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.struts</groupId>
-      <artifactId>struts2-config-browser-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fost</groupId>
-      <artifactId>webcommon</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fost.uum</groupId>
-      <artifactId>uum-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fost.uum</groupId>
-      <artifactId>sso-client</artifactId>
-    </dependency>
-  </dependencies>
 </project>
