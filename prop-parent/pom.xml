@@ -17,7 +17,7 @@
   <modules>
     <module>prop-client</module>
     <module>prop-core</module>
-    <module>prop-esb</module>
+    <module>prop-server</module>
     <module>prop-admin</module>
   </modules>
 
