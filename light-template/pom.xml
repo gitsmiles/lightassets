@@ -19,7 +19,7 @@
     <module>template-api</module>
 	<module>template-admin</module>
 	<module>template-web</module>
-	<module>template-esb</module>
+	<module>template-server</module>
 	<module>template-client</module>
   </modules>
 
