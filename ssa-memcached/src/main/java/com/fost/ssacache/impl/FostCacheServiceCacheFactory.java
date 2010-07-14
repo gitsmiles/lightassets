@@ -13,7 +13,7 @@ import com.fost.esb.cache.CacheManager;
  * @author Janly
  *
  */
-public class CacheServiceCacheFactory implements CacheFactory,org.springframework.context.ApplicationContextAware {
+public class FostCacheServiceCacheFactory implements CacheFactory,org.springframework.context.ApplicationContextAware {
 	private ApplicationContext applicationContext;
 	private CacheManager cacheManager;
 	

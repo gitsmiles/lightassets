@@ -12,7 +12,7 @@ import com.fost.esb.ICacheService;
  * @author Janly
  *
  */
-public class CacheServiceCache implements Cache {
+public class FostCacheServiceCache implements Cache {
 	
 	private ICacheService cacheService;
 
