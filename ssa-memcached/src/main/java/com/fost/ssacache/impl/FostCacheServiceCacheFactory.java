@@ -16,6 +16,7 @@ import com.fost.esb.cache.CacheManager;
 public class FostCacheServiceCacheFactory implements CacheFactory,org.springframework.context.ApplicationContextAware {
 	private ApplicationContext applicationContext;
 	private CacheManager cacheManager;
+	private String client;
 	
 
 	@Override
@@ -26,7 +27,7 @@ public class FostCacheServiceCacheFactory implements CacheFactory,org.springfram
 		}
 		
 		CacheServiceCache cacheServiceCache=new CacheServiceCache();
-		cacheServiceCache.setCacheService(cacheManager.getDistributedCache(annotationContext.getCacheName()));
+		cacheServiceCache.setCacheService(cacheManager.getDistributedCache(this.getClient()));
 		return cacheServiceCache;
 	}
 
@@ -42,5 +43,15 @@ public class FostCacheServiceCacheFactory implements CacheFactory,org.springfram
 	public final void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
+
+	public final String getClient() {
+		return client;
+	}
+
+	public final void setClient(String client) {
+		this.client = client;
+	}
+	
+	
 
 }
