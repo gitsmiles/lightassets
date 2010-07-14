@@ -3,9 +3,14 @@ package com.fost.ssacache.impl;
 import java.util.concurrent.TimeoutException;
 
 import com.fost.ssacache.Cache;
+import com.fost.ssacache.ClientAdapter;
 
 public class ClusterCache implements Cache{
-
+	private java.util.ArrayList<ClientAdapter> adapters;
+	
+	public ClusterCache(String mode){
+		
+	}
 	@Override
 	public boolean add(String key, int exp, Object value, long timeout)
 			throws TimeoutException, InterruptedException {
@@ -41,8 +46,8 @@ public class ClusterCache implements Cache{
 	}
 
 	@Override
-	public boolean set(String key, int exp, Object value, long timeout)
-			throws TimeoutException, InterruptedException {
+	public boolean set(String key, int exp, Object value, long timeout) throws TimeoutException, InterruptedException {
+		
 		
 		return false;
 	}
