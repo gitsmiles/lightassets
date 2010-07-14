@@ -15,7 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface GetFromCache{
-	public String cacheName() default "";
 
 	public String namespace() default "root";
 	

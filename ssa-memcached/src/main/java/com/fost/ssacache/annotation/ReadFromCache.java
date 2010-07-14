@@ -15,8 +15,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ReadFromCache {
-	
-	public String cacheName() default "categoryCache";
 
 	public String namespace() default "root";
 	
@@ -26,6 +24,6 @@ public @interface ReadFromCache {
 	
 	public String assignedKey() default "";
 	
-	public int expiration() default 300;
+	public int expiration() default 0;
 	
 }
