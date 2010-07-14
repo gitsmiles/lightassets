@@ -7,7 +7,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
-public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
+public class FostBeanDefinitionParser extends BaseBeanDefinitionParser{
 
 	@Override
 	protected List<PropertyValue> parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext) {
