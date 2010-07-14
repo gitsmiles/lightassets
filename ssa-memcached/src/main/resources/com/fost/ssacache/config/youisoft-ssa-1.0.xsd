@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema targetNamespace="http://www.youisoft.org/schema/ssa" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.youisoft.org/schema/ssa">
-    <xsd:element name="ssa-spy" type="xsd:string"></xsd:element>
-    <xsd:element name="ssa-yan" type="xsd:string"></xsd:element>
-    <xsd:element name="ssa-fost" type="xsd:string"></xsd:element>
-    <xsd:element name="ssa-cluster" type="cluster-type"></xsd:element>
-   
-   
-   
-   
-   <!-- type definition  -->
-   <xsd:complexType name="cluster-type">
-   	<xsd:sequence>
-   		<xsd:element name="cache" type="xsd:string" maxOccurs="unbounded" minOccurs="1"></xsd:element>
-   	</xsd:sequence>
-   	<xsd:attribute name="mode" type="modeType"></xsd:attribute>
-   </xsd:complexType>
+<xsd:schema targetNamespace="http://www.youisoft.org/schema/ssa"
+	elementFormDefault="qualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.youisoft.org/schema/ssa" xmlns:bean="http://www.springframework.org/schema/beans">
+	
+	
+	<xsd:import schemaLocation="http://www.springframework.org/schema/beans/spring-beans-2.0.xsd" namespace="http://www.springframework.org/schema/beans"></xsd:import>
+	
+	
+	
+	<xsd:element name="ssa-spy" type="common-type"></xsd:element>
+	<xsd:element name="ssa-yan" type="common-type"></xsd:element>
+	<xsd:element name="ssa-fost" type="common-type"></xsd:element>
+	<xsd:element name="ssa-cluster" type="cluster-type"></xsd:element>
 
 
-   <xsd:simpleType name="modeType">
-    	<xsd:restriction base="xsd:string">
-    		<xsd:enumeration value="active"></xsd:enumeration>
-    		<xsd:enumeration value="standby"></xsd:enumeration>
-    		<xsd:enumeration value="auto"></xsd:enumeration>
-    	</xsd:restriction>
-    </xsd:simpleType>
-    
+
+
+	<!-- type definition  -->
+	<xsd:complexType name="cluster-type">
+		<xsd:sequence>
+			<xsd:element name="clients" type="bean:listOrSetType" maxOccurs="1" minOccurs="1">
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="mode" type="modeType"></xsd:attribute>
+	</xsd:complexType>
+
+
+	<xsd:simpleType name="modeType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="active"></xsd:enumeration>
+			<xsd:enumeration value="standby"></xsd:enumeration>
+			<xsd:enumeration value="auto"></xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+
+	<xsd:complexType name="common-type">
+		<xsd:attribute name="client" type="xsd:string"></xsd:attribute>
+	</xsd:complexType>
 </xsd:schema>
