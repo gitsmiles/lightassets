@@ -8,7 +8,6 @@ package com.fost.ssacache;
  *
  */
 public final class AnnotationContext {
-	private String cacheName;
 	private String namespace;
     private int expiration;
     private int timeOut;
@@ -94,14 +93,6 @@ public final class AnnotationContext {
 
 	public final void setInvoke(boolean invoke) {
 		this.invoke = invoke;
-	}
-
-	public final String getCacheName() {
-		return cacheName;
-	}
-
-	public final void setCacheName(String cacheName) {
-		this.cacheName = cacheName;
 	}
 
 
