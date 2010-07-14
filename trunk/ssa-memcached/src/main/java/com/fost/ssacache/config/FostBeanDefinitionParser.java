@@ -15,7 +15,7 @@ public class FostBeanDefinitionParser extends BaseBeanDefinitionParser{
 		
 		
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.impl.CacheServiceCacheFactory.class);
+		beanDefinition.setBeanClass(com.fost.ssacache.impl.FostCacheServiceCacheFactory.class);
 		
 		PropertyValue pv = new PropertyValue("cacheFactory", beanDefinition);
 		pvs.add(pv);
