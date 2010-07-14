@@ -8,13 +8,16 @@
    
    
    
-   
-    <xsd:complexType name="cluster-type">
-    	<xsd:attribute name="mode" type="modeType"></xsd:attribute>
-    </xsd:complexType>
-    
-    
-    <xsd:simpleType name="modeType">
+   <!-- type definition  -->
+   <xsd:complexType name="cluster-type">
+   	<xsd:sequence>
+   		<xsd:element name="cache" type="xsd:string" maxOccurs="unbounded" minOccurs="1"></xsd:element>
+   	</xsd:sequence>
+   	<xsd:attribute name="mode" type="modeType"></xsd:attribute>
+   </xsd:complexType>
+
+
+   <xsd:simpleType name="modeType">
     	<xsd:restriction base="xsd:string">
     		<xsd:enumeration value="active"></xsd:enumeration>
     		<xsd:enumeration value="standby"></xsd:enumeration>
