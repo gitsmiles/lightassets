@@ -9,9 +9,9 @@
 	
 	
 	
-	<xsd:element name="ssa-spy" type="common-type"></xsd:element>
-	<xsd:element name="ssa-yan" type="common-type"></xsd:element>
-	<xsd:element name="ssa-fost" type="common-type"></xsd:element>
+	<xsd:element name="ssa-spy" type="commonType"></xsd:element>
+	<xsd:element name="ssa-yan" type="commonType"></xsd:element>
+	<xsd:element name="ssa-fost" type="commonType"></xsd:element>
 	<xsd:element name="ssa-cluster" type="cluster-type"></xsd:element>
 
 
@@ -20,10 +20,12 @@
 	<!-- type definition  -->
 	<xsd:complexType name="cluster-type">
 		<xsd:sequence>
-			<xsd:element name="clients" type="bean:listOrSetType" maxOccurs="1" minOccurs="1">
+			<xsd:element name="client" maxOccurs="unbounded"
+				minOccurs="1" type="clientType">
 			</xsd:element>
 		</xsd:sequence>
 		<xsd:attribute name="mode" type="modeType"></xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
 	</xsd:complexType>
 
 
@@ -36,7 +38,12 @@
 	</xsd:simpleType>
 
 
-	<xsd:complexType name="common-type">
+	<xsd:complexType name="commonType">
 		<xsd:attribute name="client" type="xsd:string"></xsd:attribute>
+	</xsd:complexType>
+
+	<xsd:complexType name="clientType">
+		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="adapter" type="xsd:string"></xsd:attribute>
 	</xsd:complexType>
 </xsd:schema>
