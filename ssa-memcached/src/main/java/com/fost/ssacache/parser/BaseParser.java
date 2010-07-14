@@ -39,11 +39,6 @@ public abstract class BaseParser {
 
 	protected static void parserCommon(final AnnotationContext data,final Annotation annotation, final Class<?> expectedAnnotationClass,final String targetMethodName) throws Exception{
 		
-		final Method cacheNameMethod = expectedAnnotationClass.getDeclaredMethod("cacheName", new Class[]{});
-		final String cacheName = (String)cacheNameMethod.invoke(annotation,new Object[]{});
-		data.setCacheName(cacheName);
-		
-    	
 		final Method namespaceMethod = expectedAnnotationClass.getDeclaredMethod("namespace", new Class[]{});
 		final String namespace = (String) namespaceMethod.invoke(annotation,new Object[]{});
 		data.setNamespace(namespace);
