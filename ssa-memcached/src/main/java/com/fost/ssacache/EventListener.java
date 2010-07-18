@@ -1,0 +1,8 @@
+package com.fost.ssacache;
+
+public interface EventListener {
+
+	public boolean captureEvent(CacheEvent cacheEvent);
+	
+	public Object executeEvent(CacheEvent cacheEvent);
+}
