@@ -38,6 +38,7 @@ public final class EventManager {
 	
 	public final void publishEvent(CacheEvent event){
 		try{
+			event.setEventManager(this);
 			events.put(event);
 		}catch(InterruptedException e){
 			
@@ -76,6 +77,9 @@ public final class EventManager {
 	}
 	
 	///////////////
+	/**
+	 * Janly
+	 */
 	static class EventThread extends java.lang.Thread{
 		private EventManager eventManager;
 		private java.util.concurrent.ExecutorService executorService;
@@ -98,6 +102,9 @@ public final class EventManager {
 	}
 	
 	//////
+	/**
+	 * Janly
+	 */
 	class EventJob implements java.lang.Runnable{
 		private CacheEvent event;
 		private EventJob(CacheEvent event){
