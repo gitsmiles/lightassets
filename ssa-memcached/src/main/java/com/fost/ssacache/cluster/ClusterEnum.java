@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.fost.ssacache.impl;
+package com.fost.ssacache.cluster;
 
 /**
  * @author Janly

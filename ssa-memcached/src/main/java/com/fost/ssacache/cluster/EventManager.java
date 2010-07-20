@@ -1,4 +1,6 @@
-package com.fost.ssacache;
+package com.fost.ssacache.cluster;
+
+import com.fost.ssacache.ClientAdapter;
 
 
 /**
@@ -9,6 +11,7 @@ public final class EventManager {
 	
 	private java.util.concurrent.BlockingQueue<CacheEvent> events;
 	private java.util.Set<EventListener> listeners;
+	private java.util.List<ClientAdapter> adapters;
 	private int threadPoolSize=30;
 	private static EventManager instance;
 	
@@ -76,6 +79,19 @@ public final class EventManager {
 		this.threadPoolSize = threadPoolSize;
 	}
 	
+	
+	
+	public final java.util.List<ClientAdapter> getAdapters() {
+		return adapters;
+	}
+
+
+	public final void setAdapters(java.util.List<ClientAdapter> adapters) {
+		this.adapters = adapters;
+	}
+
+
+
 	///////////////
 	/**
 	 * Janly
