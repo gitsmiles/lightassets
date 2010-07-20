@@ -27,7 +27,7 @@ public class DeleteFromCacheAspect extends SsaContext{
 		try {
 			annotationContext =buildAnnotationContext(pjp,DeleteFromCache.class);
             final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-            cache=this.getCacheFactory().createCache(annotationContext);
+            cache=this.getCacheFactory().createCache();
             if(annotationContext.isNoreply()){
             	cache.deleteWithNoReply(cacheKey);
             }else{

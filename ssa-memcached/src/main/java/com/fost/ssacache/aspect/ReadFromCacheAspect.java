@@ -30,7 +30,7 @@ public final class ReadFromCacheAspect extends SsaContext{
 		try {
             annotationContext =buildAnnotationContext(pjp,ReadFromCache.class);
 			cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-			cache= this.getCacheFactory().createCache(annotationContext);
+			cache= this.getCacheFactory().createCache();
 			result= cache.get(cacheKey,annotationContext.getTimeOut());
 			
 			if (result != null) {

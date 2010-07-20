@@ -30,7 +30,7 @@ public class AddToCacheAspect extends SsaContext{
 			result = pjp.proceed();
 			final AnnotationContext annotationContext =buildAnnotationContext(pjp,AddToCache.class);
             final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-            cache=this.getCacheFactory().createCache(annotationContext);
+            cache=this.getCacheFactory().createCache();
             if(annotationContext.isNoreply()){
             	cache.addWithNoReply(cacheKey, annotationContext.getExpiration(), result==null?new NullValue():result);
             }else{
