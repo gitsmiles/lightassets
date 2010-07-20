@@ -55,9 +55,9 @@ public interface Cache {
 	
 //	public void cas();
 //	
-//	public void incr();
+//	public void incr(final String key,final int cnt);
 //	
-//	public void decr();
+//	public void decr(final String key,final int cnt);
 //	
 //	public void flush();
 
