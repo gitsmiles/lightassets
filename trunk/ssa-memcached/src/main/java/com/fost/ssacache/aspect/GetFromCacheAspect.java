@@ -29,7 +29,7 @@ public final class GetFromCacheAspect extends SsaContext{
 		try {
 			final AnnotationContext annotationContext =buildAnnotationContext(pjp,GetFromCache.class);
 			final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-			cache=this.getCacheFactory().createCache(annotationContext);
+			cache=this.getCacheFactory().createCache();
 			result = cache.get(cacheKey, annotationContext.getTimeOut());
 			if(annotationContext.isInvoke()) pjp.proceed();
 		} catch (Throwable ex) {

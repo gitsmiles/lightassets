@@ -29,7 +29,7 @@ public class SetToCacheAspect extends SsaContext{
 			result = pjp.proceed();
 			final AnnotationContext annotationContext =buildAnnotationContext(pjp,SetToCache.class);
             final String cacheKey = this.getCacheKeyProvider().generateCacheKey(annotationContext);
-            cache=this.getCacheFactory().createCache(annotationContext);
+            cache=this.getCacheFactory().createCache();
             
             
             if(annotationContext.isNoreply()){
