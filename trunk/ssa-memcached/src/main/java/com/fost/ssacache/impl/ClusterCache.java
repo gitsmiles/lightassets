@@ -4,8 +4,9 @@ import java.util.concurrent.TimeoutException;
 
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.ClientAdapter;
-import com.fost.ssacache.EventManager;
-import com.fost.ssacache.event.AddCacheEvent;
+import com.fost.ssacache.cluster.ClusterEnum;
+import com.fost.ssacache.cluster.EventManager;
+import com.fost.ssacache.cluster.event.AddCacheEvent;
 /**
  * 
  * @author Janly
@@ -17,6 +18,8 @@ public class ClusterCache implements Cache{
 	
 	public ClusterCache(String value){
 		mode=ClusterEnum.valueOf(value);
+		adapters=java.util.Collections.synchronizedList(new java.util.ArrayList<ClientAdapter>(4));
+		EventManager.getInstance().setAdapters(adapters);
 	}
 	
 
@@ -151,6 +154,11 @@ public class ClusterCache implements Cache{
 		int keyCode=key.hashCode();
 		int mod=keyCode%adapters.size();
 		return adapters.get(mod);
+	}
+	
+	
+	public void addClientAdapter(ClientAdapter clientAdapter){
+		this.adapters.add(clientAdapter);
 	}
 	
 }

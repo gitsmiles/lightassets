@@ -1,4 +1,4 @@
-package com.fost.ssacache;
+package com.fost.ssacache.cluster;
 
 
 /**
