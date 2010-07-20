@@ -2,8 +2,6 @@ package com.fost.ssacache.impl;
 
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.context.ApplicationContext;
-
-import com.fost.ssacache.AnnotationContext;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.CacheFactory;
 import com.fost.esb.cache.CacheManager;
@@ -20,7 +18,7 @@ public class FostCacheServiceCacheFactory implements CacheFactory,org.springfram
 	
 
 	@Override
-	public Cache createCache(AnnotationContext annotationContext) {
+	public Cache createCache() {
 		if(cacheManager==null) {
 			String[] beans=BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, CacheManager.class);
 			cacheManager=(CacheManager)this.applicationContext.getBean(beans[0], CacheManager.class);
