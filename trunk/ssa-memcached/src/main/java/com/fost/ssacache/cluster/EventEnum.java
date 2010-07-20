@@ -8,6 +8,6 @@ package com.fost.ssacache.cluster;
  *
  */
 public enum EventEnum {
-	add,replace,set,get,delete;
+	set,cas,add,replace,prepend,append,delete,recover,incr,decr;
 
 }
