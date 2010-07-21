@@ -9,6 +9,6 @@ package com.fost.ssacache.cluster;
  */
 public enum ClusterEnum {
 
-	local,sticky,active,standby;
+	sticky,active,standby;
 	
 }
