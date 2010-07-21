@@ -15,13 +15,16 @@ import com.fost.ssacache.cluster.event.RecoverCacheEvent;
  *
  */
 public class ClusterCache implements Cache{
-	private java.util.List<ClientAdapter> adapters;
+	private java.util.List<ClientAdapter> localAdapters;
+	private java.util.List<ClientAdapter> remoteAdapters;
 	private java.util.Map<String, java.util.List<ClientAdapter>> groupAdapterMap;
 	private ClusterEnum mode;
+	private boolean localCache=false;
 	
 	public ClusterCache(String value){
 		mode=ClusterEnum.valueOf(value);
-		this.adapters=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+		this.localAdapters=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+		this.remoteAdapters=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
 		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
@@ -104,31 +107,19 @@ public class ClusterCache implements Cache{
 			InterruptedException {
 		Object obj=null;
 		switch (mode){
-		case local:
-			java.lang.StringBuilder sb=new java.lang.StringBuilder();
-			int len=this.adapters.size();
-			for(int i=0;i<len;i++){
-				ClientAdapter client=this.adapters.get(i);
-				if(client.isLocal()) {
-					obj=client.get(key, timeout);
-					if(obj!=null) return obj;
-					if(i+1!=len) sb.append(i+",");
-					if(i+1==len) sb.append(i);
-				}
-			}
-			
-			String[] idx=sb.toString().split(",");
-			for(int i=0;i<idx.length;i++){
-				obj=this.adapters.get(i);
-				if(obj!=null) return obj;
-			}
-			break;
 		case sticky:
+			if(this.localCache){
+				return this.getFromLocalCache(key, timeout);
+			}
 			return this.getMasterClientAdapter(key).get(key, timeout);
 		case active:
+			if(this.localCache){
+				return this.getFromLocalCache(key, timeout);
+			}
+			
 			String group=this.getMasterClientAdapter(key).getGroup();
-			for(ClientAdapter client:this.adapters){
-				if(!group.equals(client.getGroup())) continue;
+			java.util.List<ClientAdapter> list=this.groupAdapterMap.get(group);
+			for(ClientAdapter client:list){
 				obj=client.get(key, timeout);
 				if(obj!=null) {
 					RecoverCacheEvent event=new RecoverCacheEvent();
@@ -141,9 +132,12 @@ public class ClusterCache implements Cache{
 			}
 			break;
 		case standby:
+			if(this.localCache){
+				return this.getFromLocalCache(key, timeout);
+			}
 			group=this.getMasterClientAdapter(key).getGroup();
-			for(ClientAdapter client:this.adapters){
-				if(!group.equals(client.getGroup())) continue;
+			list=this.groupAdapterMap.get(group);
+			for(ClientAdapter client:list){
 				obj=client.get(key, timeout);
 				if(obj!=null) return obj;
 			}
@@ -152,6 +146,16 @@ public class ClusterCache implements Cache{
 		return null;
 	}
 
+	public Object getFromLocalCache(String key, long timeout) throws TimeoutException,
+	InterruptedException {
+		Object obj=null;
+		for(ClientAdapter client:this.localAdapters){
+			obj=client.get(key, timeout);
+			if(obj!=null) return obj;
+		}
+		return obj;
+	}
+	
 	@Override
 	public boolean set(String key, int exp, Object value, long timeout) throws TimeoutException, InterruptedException {
 		
@@ -194,7 +198,14 @@ public class ClusterCache implements Cache{
 	
 	
 	public void addClientAdapter(ClientAdapter clientAdapter){
-		this.adapters.add(clientAdapter);
+		if(clientAdapter.isLocal()) {
+			this.localAdapters.add(clientAdapter);
+			this.localCache=true;
+			return;
+		}
+		
+		this.remoteAdapters.add(clientAdapter);
+		
 		java.util.List<ClientAdapter> list=this.groupAdapterMap.get(clientAdapter.getGroup());
 		if(list==null) list=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
 		list.add(clientAdapter);
