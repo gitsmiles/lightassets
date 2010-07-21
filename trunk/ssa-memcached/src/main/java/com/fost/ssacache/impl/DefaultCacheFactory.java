@@ -20,10 +20,12 @@ public class DefaultCacheFactory implements CacheFactory,org.springframework.con
 	public Cache createCache() {
 		
 		ClientAdapter clientAdapter=null;
-		
+		DefaultCache cache=new DefaultCache();
 		
 		//TODO:
-		return new DefaultCache(clientAdapter);
+		
+		
+		return cache;
 	}
 	
 	@Override

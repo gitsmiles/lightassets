@@ -42,6 +42,7 @@ public class ClusterCache implements Cache{
 		case standby:
 			AddCacheEvent event=new AddCacheEvent();
 			event.setKey(key);
+			event.setExp(exp);
 			event.setValue(value);
 			event.setTimeout(timeout);
 			EventManager.getInstance().synPublishEvent(event);
@@ -64,11 +65,10 @@ public class ClusterCache implements Cache{
 			case standby:
 				AddCacheEvent event=new AddCacheEvent();
 				event.setKey(key);
+				event.setExp(exp);
 				event.setValue(value);
 				EventManager.getInstance().asynPublishEvent(event);
 		}
-		
-		
 	}
 
 	@Override
