@@ -39,15 +39,22 @@ public final class EventManager {
 	}
 	
 	
-	public final void publishEvent(CacheEvent event){
+	public final void asynPublishEvent(CacheEvent cacheEvent){
 		try{
-			event.setEventManager(this);
-			events.put(event);
+			cacheEvent.setEventManager(this);
+			events.put(cacheEvent);
 		}catch(InterruptedException e){
 			
 		}
 	}
-
+	
+	
+	public final void synPublishEvent(CacheEvent cacheEvent){
+		cacheEvent.setEventManager(this);
+		for(EventListener listener:this.listeners){
+			if(listener.captureEvent(cacheEvent)) listener.executeEvent(cacheEvent,true);
+		}
+	}
 	
 	
 	private final CacheEvent takeEvent(){
@@ -129,7 +136,7 @@ public final class EventManager {
 		@Override
 		public void run() {
 			for(EventListener listener:EventManager.getInstance().getListeners()){
-				if(listener.captureEvent(event)) listener.executeEvent(event);
+				if(listener.captureEvent(event)) listener.executeEvent(event,false);
 			}
 			
 		}
