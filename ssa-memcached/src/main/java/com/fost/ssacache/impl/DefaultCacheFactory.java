@@ -7,6 +7,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.CacheFactory;
+import com.fost.ssacache.ClientAdapter;
 
 /**
  * @author Janly
@@ -17,8 +18,12 @@ public class DefaultCacheFactory implements CacheFactory,org.springframework.con
 	private ApplicationContext applicationContext;
 	@Override
 	public Cache createCache() {
-		DefaultCache cache=new DefaultCache();
-		return cache;
+		
+		ClientAdapter clientAdapter=null;
+		
+		
+		//TODO:
+		return new DefaultCache(clientAdapter);
 	}
 	
 	@Override
