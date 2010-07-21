@@ -25,7 +25,7 @@
 				minOccurs="1" type="clientType">
 			</xsd:element>
 		</xsd:sequence>
-		<xsd:attribute name="mode" type="modeType"></xsd:attribute>
+		<xsd:attribute name="mode" type="modeType" default="sticky"></xsd:attribute>
 		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
 	</xsd:complexType>
 
