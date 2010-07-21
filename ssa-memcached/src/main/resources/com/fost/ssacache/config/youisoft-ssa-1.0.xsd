@@ -32,7 +32,6 @@
 
 	<xsd:simpleType name="modeType">
 		<xsd:restriction base="xsd:string">
-		    <xsd:enumeration value="local"></xsd:enumeration>
 		    <xsd:enumeration value="sticky"></xsd:enumeration>
 			<xsd:enumeration value="active"></xsd:enumeration>
 			<xsd:enumeration value="standby"></xsd:enumeration>
@@ -42,6 +41,7 @@
 
 	<xsd:complexType name="commonType">
 		<xsd:attribute name="client" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="local" type="xsd:boolean"></xsd:attribute>
 	</xsd:complexType>
 
 	<xsd:complexType name="clientType">
@@ -55,7 +55,7 @@
 
 	<xsd:complexType name="cacheType">
 		<xsd:sequence>
-			<xsd:element name="client" type="clientType" maxOccurs="1" minOccurs="1"></xsd:element>
+			<xsd:element name="client" type="clientType" maxOccurs="unbounded" minOccurs="1"></xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 </xsd:schema>
