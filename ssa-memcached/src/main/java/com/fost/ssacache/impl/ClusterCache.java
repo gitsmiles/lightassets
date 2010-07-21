@@ -8,7 +8,9 @@ import com.fost.ssacache.cluster.ClusterEnum;
 import com.fost.ssacache.cluster.ClusterUtil;
 import com.fost.ssacache.cluster.EventManager;
 import com.fost.ssacache.cluster.event.AddCacheEvent;
+import com.fost.ssacache.cluster.event.DeleteCacheEvent;
 import com.fost.ssacache.cluster.event.RecoverCacheEvent;
+import com.fost.ssacache.cluster.event.SetCacheEvent;
 /**
  * 
  * @author Janly
@@ -80,10 +82,11 @@ public class ClusterCache implements Cache{
 		case sticky:
 			return this.getMasterClientAdapter(key).delete(key, time);
 		case active:
-			
-			break;
 		case standby:
-			
+			DeleteCacheEvent event=new DeleteCacheEvent();
+			event.setKey(key);
+			event.setTimeout(time);
+			EventManager.getInstance().synPublishEvent(event);
 			break;
 	
 		}
@@ -101,10 +104,10 @@ public class ClusterCache implements Cache{
 			this.getMasterClientAdapter(key).deleteWithNoReply(key);
 			break;
 		case active:
-			
-			break;
 		case standby:
-			
+			DeleteCacheEvent event=new DeleteCacheEvent();
+			event.setKey(key);
+			EventManager.getInstance().asynPublishEvent(event);
 			break;
 	
 		}
@@ -159,10 +162,13 @@ public class ClusterCache implements Cache{
 			this.getMasterClientAdapter(key).set(key, exp, value, timeout);
 			break;
 		case active:
-			
-			break;
 		case standby:
-			
+			SetCacheEvent event=new SetCacheEvent();
+			event.setKey(key);
+			event.setExp(exp);
+			event.setValue(value);
+			event.setTimeout(timeout);
+			EventManager.getInstance().synPublishEvent(event);
 			break;
 	
 		}
@@ -180,10 +186,12 @@ public class ClusterCache implements Cache{
 			this.getMasterClientAdapter(key).setWithNoReply(key, exp, value);
 			break;
 		case active:
-			
-			break;
 		case standby:
-			
+			SetCacheEvent event=new SetCacheEvent();
+			event.setKey(key);
+			event.setExp(exp);
+			event.setValue(value);
+			EventManager.getInstance().asynPublishEvent(event);
 			break;
 	
 		}
