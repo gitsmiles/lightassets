@@ -21,7 +21,7 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		
 		
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.impl.DefaultMemcachedCacheFactory.class);
+		beanDefinition.setBeanClass(com.fost.ssacache.impl.DefaultCacheFactory.class);
 		
 		PropertyValue pv = new PropertyValue("cacheFactory", beanDefinition);
 		pvs.add(pv);

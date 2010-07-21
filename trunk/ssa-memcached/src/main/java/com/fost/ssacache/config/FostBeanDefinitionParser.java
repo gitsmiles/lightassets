@@ -7,6 +7,11 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
+/**
+ * 
+ * @author Janly
+ *
+ */
 public class FostBeanDefinitionParser extends BaseBeanDefinitionParser{
 
 	@Override
