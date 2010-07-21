@@ -41,12 +41,12 @@ public class DefaultCache implements Cache{
 	}
 
 	@Override
-	public boolean delete(String key, int time) throws TimeoutException,
+	public boolean delete(String key, long timeout) throws TimeoutException,
 			InterruptedException {
 		if(this.existLocalCache()){
-			this.getLocalClientAdapter(key).delete(key, time);
+			this.getLocalClientAdapter(key).delete(key, timeout);
 		}
-		return this.getRemoteClientAdapter(key).delete(key, time);
+		return this.getRemoteClientAdapter(key).delete(key, timeout);
 	}
 
 	@Override
