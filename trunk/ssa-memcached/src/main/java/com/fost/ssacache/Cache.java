@@ -47,7 +47,7 @@ public interface Cache {
 //	public abstract boolean appendWithNoReply();
 	
 
-	public abstract boolean delete(final String key, final int time) throws TimeoutException, InterruptedException;
+	public abstract boolean delete(final String key, final long timeout) throws TimeoutException, InterruptedException;
 
 
 	public void deleteWithNoReply(final String key) throws InterruptedException;
