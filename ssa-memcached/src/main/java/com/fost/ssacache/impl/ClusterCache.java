@@ -74,18 +74,18 @@ public class ClusterCache implements Cache{
 	}
 
 	@Override
-	public boolean delete(String key, int time) throws TimeoutException,InterruptedException {
+	public boolean delete(String key, long timeout) throws TimeoutException,InterruptedException {
 		if(this.existLocalCache()){
-			this.getLocalClientAdapter(key).delete(key, time);
+			this.getLocalClientAdapter(key).delete(key, timeout);
 		}
 		switch (mode){
 		case sticky:
-			return this.getMasterClientAdapter(key).delete(key, time);
+			return this.getMasterClientAdapter(key).delete(key, timeout);
 		case active:
 		case standby:
 			DeleteCacheEvent event=new DeleteCacheEvent();
 			event.setKey(key);
-			event.setTimeout(time);
+			event.setTimeout(timeout);
 			EventManager.getInstance().synPublishEvent(event);
 			break;
 	
@@ -115,8 +115,7 @@ public class ClusterCache implements Cache{
 	}
 
 	@Override
-	public Object get(String key, long timeout) throws TimeoutException,
-			InterruptedException {
+	public Object get(String key, long timeout) throws TimeoutException,InterruptedException {
 		Object obj=null;
 		if(this.existLocalCache()){
 			obj=this.getLocalClientAdapter(key).get(key, timeout);
@@ -222,9 +221,12 @@ public class ClusterCache implements Cache{
 		
 		this.remoteAdapters.add(clientAdapter);
 		java.util.List<ClientAdapter> list=this.groupAdapterMap.get(clientAdapter.getGroup());
-		if(list==null) list=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+		if(list==null) {
+			list=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+			this.groupAdapterMap.put(clientAdapter.getGroup(), list);
+			EventManager.getInstance().getGroupAdapterMap().put(clientAdapter.getGroup(), list);
+		}
 		list.add(clientAdapter);
-		this.groupAdapterMap.put(clientAdapter.getGroup(), list);
 	}
 	
 }

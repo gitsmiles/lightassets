@@ -28,7 +28,7 @@ public class SpyMemcachedCache implements Cache{
 	}
 
 	@Override
-	public boolean delete(String key, int time) throws TimeoutException,
+	public boolean delete(String key, long timeout) throws TimeoutException,
 			InterruptedException {
 		
 		return false;
