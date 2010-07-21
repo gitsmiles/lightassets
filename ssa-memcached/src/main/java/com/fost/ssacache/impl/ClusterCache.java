@@ -44,7 +44,7 @@ public class ClusterCache implements Cache{
 			event.setKey(key);
 			event.setValue(value);
 			event.setTimeout(timeout);
-			EventManager.getInstance().publishEvent(event);
+			EventManager.getInstance().synPublishEvent(event);
 			return true;
 		}
 		
@@ -65,7 +65,7 @@ public class ClusterCache implements Cache{
 				AddCacheEvent event=new AddCacheEvent();
 				event.setKey(key);
 				event.setValue(value);
-				EventManager.getInstance().publishEvent(event);
+				EventManager.getInstance().asynPublishEvent(event);
 		}
 		
 		
@@ -132,7 +132,7 @@ public class ClusterCache implements Cache{
 					RecoverCacheEvent event=new RecoverCacheEvent();
 					event.setKey(key);
 					event.setValue(obj);
-					EventManager.getInstance().publishEvent(event);
+					EventManager.getInstance().asynPublishEvent(event);
 					return obj;
 				}
 			}
