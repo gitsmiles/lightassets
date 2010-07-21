@@ -18,6 +18,7 @@ public class SsaNamespaceHandler extends NamespaceHandlerSupport{
 		this.registerBeanDefinitionParser(_spy, new SpyBeanDefinitionParser());
 		this.registerBeanDefinitionParser(_yan, new YanBeanDefinitionParser());
 		this.registerBeanDefinitionParser(_fost, new FostBeanDefinitionParser());
+		this.registerBeanDefinitionParser(_cache, new CacheBeanDefinitionParser());
 		this.registerBeanDefinitionParser(_cluster, new ClusterBeanDefinitionParser());
 	}
 }
