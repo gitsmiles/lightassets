@@ -5,8 +5,10 @@ import java.util.concurrent.TimeoutException;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.ClientAdapter;
 import com.fost.ssacache.cluster.ClusterEnum;
+import com.fost.ssacache.cluster.ClusterUtil;
 import com.fost.ssacache.cluster.EventManager;
 import com.fost.ssacache.cluster.event.AddCacheEvent;
+import com.fost.ssacache.cluster.event.RecoverCacheEvent;
 /**
  * 
  * @author Janly
@@ -14,12 +16,13 @@ import com.fost.ssacache.cluster.event.AddCacheEvent;
  */
 public class ClusterCache implements Cache{
 	private java.util.List<ClientAdapter> adapters;
+	private java.util.Map<String, java.util.List<ClientAdapter>> groupAdapterMap;
 	private ClusterEnum mode;
 	
 	public ClusterCache(String value){
 		mode=ClusterEnum.valueOf(value);
-		adapters=java.util.Collections.synchronizedList(new java.util.ArrayList<ClientAdapter>(4));
-		EventManager.getInstance().setAdapters(adapters);
+		this.adapters=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
 
@@ -51,12 +54,11 @@ public class ClusterCache implements Cache{
 				this.getMasterClientAdapter(key).addWithNoReply(key, exp, value);
 				break;
 			case active:
-				
-				break;
 			case standby:
-				
-				break;
-		
+				AddCacheEvent event=new AddCacheEvent();
+				event.setKey(key);
+				event.setValue(value);
+				EventManager.getInstance().publishEvent(event);
 		}
 		
 		
@@ -100,16 +102,52 @@ public class ClusterCache implements Cache{
 	@Override
 	public Object get(String key, long timeout) throws TimeoutException,
 			InterruptedException {
+		Object obj=null;
 		switch (mode){
+		case local:
+			java.lang.StringBuilder sb=new java.lang.StringBuilder();
+			int len=this.adapters.size();
+			for(int i=0;i<len;i++){
+				ClientAdapter client=this.adapters.get(i);
+				if(client.isLocal()) {
+					obj=client.get(key, timeout);
+					if(obj!=null) return obj;
+					if(i+1!=len) sb.append(i+",");
+					if(i+1==len) sb.append(i);
+				}
+			}
+			
+			String[] idx=sb.toString().split(",");
+			for(int i=0;i<idx.length;i++){
+				obj=this.adapters.get(i);
+				if(obj!=null) return obj;
+			}
+			break;
 		case sticky:
 			return this.getMasterClientAdapter(key).get(key, timeout);
 		case active:
-			
+			String group=this.getMasterClientAdapter(key).getGroup();
+			for(ClientAdapter client:this.adapters){
+				if(!group.equals(client.getGroup())) continue;
+				obj=client.get(key, timeout);
+				if(obj!=null) {
+					RecoverCacheEvent event=new RecoverCacheEvent();
+					event.setKey(key);
+					event.setValue(obj);
+					EventManager.getInstance().publishEvent(event);
+					return obj;
+				
+				}
+			}
 			break;
 		case standby:
-			
+			group=this.getMasterClientAdapter(key).getGroup();
+			for(ClientAdapter client:this.adapters){
+				if(!group.equals(client.getGroup())) continue;
+				obj=client.get(key, timeout);
+				if(obj!=null) return obj;
+			}
 			break;
-	
 		}
 		return null;
 	}
@@ -151,14 +189,16 @@ public class ClusterCache implements Cache{
 	}
 
 	private ClientAdapter getMasterClientAdapter(String key){
-		int keyCode=key.hashCode();
-		int mod=keyCode%adapters.size();
-		return adapters.get(mod);
+		return ClusterUtil.getMasterClientAdapter(groupAdapterMap, key);
 	}
 	
 	
 	public void addClientAdapter(ClientAdapter clientAdapter){
 		this.adapters.add(clientAdapter);
+		java.util.List<ClientAdapter> list=this.groupAdapterMap.get(clientAdapter.getGroup());
+		if(list==null) list=java.util.Collections.synchronizedList(new java.util.LinkedList<ClientAdapter>());
+		list.add(clientAdapter);
+		this.groupAdapterMap.put(clientAdapter.getGroup(), list);
 	}
 	
 }
