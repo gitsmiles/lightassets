@@ -12,13 +12,14 @@
 	<xsd:element name="ssa-spy" type="commonType"></xsd:element>
 	<xsd:element name="ssa-yan" type="commonType"></xsd:element>
 	<xsd:element name="ssa-fost" type="commonType"></xsd:element>
-	<xsd:element name="ssa-cluster" type="cluster-type"></xsd:element>
+	<xsd:element name="ssa-cache" type="cacheType"></xsd:element>
+	<xsd:element name="ssa-cluster" type="clusterType"></xsd:element>
 
 
 
 
 	<!-- type definition  -->
-	<xsd:complexType name="cluster-type">
+	<xsd:complexType name="clusterType">
 		<xsd:sequence>
 			<xsd:element name="client" maxOccurs="unbounded"
 				minOccurs="1" type="clientType">
@@ -31,9 +32,10 @@
 
 	<xsd:simpleType name="modeType">
 		<xsd:restriction base="xsd:string">
+		    <xsd:enumeration value="local"></xsd:enumeration>
+		    <xsd:enumeration value="sticky"></xsd:enumeration>
 			<xsd:enumeration value="active"></xsd:enumeration>
 			<xsd:enumeration value="standby"></xsd:enumeration>
-			<xsd:enumeration value="auto"></xsd:enumeration>
 		</xsd:restriction>
 	</xsd:simpleType>
 
@@ -44,6 +46,16 @@
 
 	<xsd:complexType name="clientType">
 		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="adapter" type="xsd:string"></xsd:attribute>
+		<xsd:attribute name="group" type="xsd:string" default="defult"></xsd:attribute>
+        <xsd:attribute name="local" type="xsd:boolean" default="false"></xsd:attribute>
+        <xsd:attribute name="adapter" type="xsd:string"></xsd:attribute>
+	</xsd:complexType>
+
+	
+
+	<xsd:complexType name="cacheType">
+		<xsd:sequence>
+			<xsd:element name="client" type="clientType" maxOccurs="1" minOccurs="1"></xsd:element>
+		</xsd:sequence>
 	</xsd:complexType>
 </xsd:schema>
