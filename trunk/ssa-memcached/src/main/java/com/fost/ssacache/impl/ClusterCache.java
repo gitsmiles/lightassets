@@ -134,6 +134,8 @@ public class ClusterCache implements Cache{
 					RecoverCacheEvent event=new RecoverCacheEvent();
 					event.setKey(key);
 					event.setValue(obj);
+					event.setExp(30);
+					event.setTimeout(timeout);
 					EventManager.getInstance().asynPublishEvent(event);
 					return obj;
 				}
