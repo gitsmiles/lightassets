@@ -7,6 +7,11 @@ import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
 
+/**
+ * 
+ * @author Janly
+ *
+ */
 public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
