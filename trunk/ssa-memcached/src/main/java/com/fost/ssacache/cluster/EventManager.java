@@ -1,5 +1,7 @@
 package com.fost.ssacache.cluster;
 
+import java.util.concurrent.TimeoutException;
+
 import com.fost.ssacache.ClientAdapter;
 
 
@@ -11,14 +13,14 @@ public final class EventManager {
 	
 	private java.util.concurrent.BlockingQueue<CacheEvent> events;
 	private java.util.Set<EventListener> listeners;
-	private java.util.List<ClientAdapter> adapters;
+	private java.util.Map<String, java.util.List<ClientAdapter>> groupAdapterMap;
 	private int threadPoolSize=30;
 	private static EventManager instance;
 	
 	private EventManager(){
-		events=new java.util.concurrent.LinkedBlockingQueue<CacheEvent>(6);
-		listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
-		
+		this.events=new java.util.concurrent.LinkedBlockingQueue<CacheEvent>(6);
+		this.listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
+		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
 	
@@ -49,7 +51,7 @@ public final class EventManager {
 	}
 	
 	
-	public final void synPublishEvent(CacheEvent cacheEvent){
+	public final void synPublishEvent(CacheEvent cacheEvent) throws TimeoutException,InterruptedException{
 		cacheEvent.setEventManager(this);
 		for(EventListener listener:this.listeners){
 			if(listener.captureEvent(cacheEvent)) listener.executeEvent(cacheEvent,true);
@@ -85,17 +87,15 @@ public final class EventManager {
 	public final void setThreadPoolSize(int threadPoolSize) {
 		this.threadPoolSize = threadPoolSize;
 	}
+
 	
-	
-	
-	public final java.util.List<ClientAdapter> getAdapters() {
-		return adapters;
+	public final java.util.Map<String, java.util.List<ClientAdapter>> getGroupAdapterMap() {
+		return this.groupAdapterMap;
 	}
 
 
-	public final void setAdapters(java.util.List<ClientAdapter> adapters) {
-		this.adapters = adapters;
-	}
+
+
 
 
 
@@ -136,7 +136,12 @@ public final class EventManager {
 		@Override
 		public void run() {
 			for(EventListener listener:EventManager.getInstance().getListeners()){
-				if(listener.captureEvent(event)) listener.executeEvent(event,false);
+				if(listener.captureEvent(event)) {
+					try {
+						listener.executeEvent(event,false);
+					} catch (Exception e) {
+					}
+				}
 			}
 			
 		}
