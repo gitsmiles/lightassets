@@ -31,7 +31,7 @@ public class XMemcachedFactoryBean implements FactoryBean {
 		for(String str:inetSocketAddresses){
 			temp=str.split(":");
 			if(temp.length>=2)
-			this.inetSocketAddresses.add(java.net.InetSocketAddress.createUnresolved(temp[0], new Integer(temp[1]).intValue()));
+			this.inetSocketAddresses.add(new java.net.InetSocketAddress(temp[0], new Integer(temp[1]).intValue()));
 		}
 
 	}
