@@ -15,20 +15,22 @@ public final class EventManager {
 	private java.util.Set<EventListener> listeners;
 	private java.util.Map<String, java.util.List<ClientAdapter>> groupAdapterMap;
 	private int threadPoolSize=30;
-	private static EventManager instance;
+	private static java.lang.ThreadLocal<EventManager> localEventManager=new java.lang.ThreadLocal<EventManager>();
 	
 	private EventManager(){
 		this.events=new java.util.concurrent.LinkedBlockingQueue<CacheEvent>(6);
 		this.listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
+		
 		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
 	
 	public static final EventManager getInstance(){
-		if(instance==null){
+		if(localEventManager.get()==null){
 			synchronized(EventManager.class){
-				if(instance==null){
-					instance=new EventManager();
+				if(localEventManager.get()==null){
+					EventManager instance=new EventManager();
+					localEventManager.set(instance);
 					Thread thread=new EventThread(instance);
 					thread.setDaemon(true);
 					thread.start();
@@ -37,7 +39,7 @@ public final class EventManager {
 			}
 		}
 
-		return instance;
+		return localEventManager.get();
 	}
 	
 	
