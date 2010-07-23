@@ -35,7 +35,7 @@ public abstract class AbstractClientAdapter implements ClientAdapter {
 	}
 
 	@Override
-	public boolean add(String key, int exp, Object value, long timeout)
+	public boolean add(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		
 		return false;
@@ -49,7 +49,7 @@ public abstract class AbstractClientAdapter implements ClientAdapter {
 	}
 
 	@Override
-	public boolean delete(String key, long timeout) throws TimeoutException,
+	public boolean delete(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		
 		return false;
@@ -62,14 +62,14 @@ public abstract class AbstractClientAdapter implements ClientAdapter {
 	}
 
 	@Override
-	public Object get(String key, long timeout) throws TimeoutException,
+	public Object get(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		
 		return null;
 	}
 
 	@Override
-	public boolean set(String key, int exp, Object value, long timeout)
+	public boolean set(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		
 		return false;

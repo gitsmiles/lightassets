@@ -16,7 +16,7 @@ public class FostClientAdapter extends AbstractClientAdapter{
 	
 	@Override
 	public void setClient(Object obj) {
-		if(ICacheService.getClass().isAssignableFrom(obj.getClass())){
+		if(cacheService.getClass().isAssignableFrom(obj.getClass())){
 			cacheService=(ICacheService)cacheService;
 		}else{
 			throw new java.lang.RuntimeException(FostClientAdapter.class.getName()+" is wrong!");
@@ -25,7 +25,7 @@ public class FostClientAdapter extends AbstractClientAdapter{
 	
 	
 	@Override
-	public boolean add(String key, int exp, Object value, long timeout)
+	public boolean add(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		cacheService.add(key, value, exp);
 		return true;
@@ -39,9 +39,9 @@ public class FostClientAdapter extends AbstractClientAdapter{
 	}
 
 	@Override
-	public boolean delete(String key, int time) throws TimeoutException,
+	public boolean delete(String key, int timeout) throws TimeoutException,
 			InterruptedException {
-		cacheService.delete(key, time);
+		cacheService.delete(key, (int)timeout);
 		return true;
 	}
 
@@ -52,13 +52,13 @@ public class FostClientAdapter extends AbstractClientAdapter{
 	}
 
 	@Override
-	public Object get(String key, long timeout) throws TimeoutException,
+	public Object get(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		return cacheService.get(key);
 	}
 
 	@Override
-	public boolean set(String key, int exp, Object value, long timeout)
+	public boolean set(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		cacheService.update(key, value, exp);
 		return true;

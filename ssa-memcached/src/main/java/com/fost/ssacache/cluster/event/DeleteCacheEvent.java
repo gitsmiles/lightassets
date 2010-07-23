@@ -11,7 +11,7 @@ import com.fost.ssacache.cluster.EventEnum;
  *
  */
 public class DeleteCacheEvent extends AbstractCacheEvent{
-	private long timeout;
+	private int timeout;
 	
 	@Override
 	public EventEnum getEventEnum() {
@@ -19,11 +19,11 @@ public class DeleteCacheEvent extends AbstractCacheEvent{
 	}
 
 
-	public final long getTimeout() {
+	public final int getTimeout() {
 		return timeout;
 	}
 
-	public final void setTimeout(long timeout) {
+	public final void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
 
