@@ -2,9 +2,13 @@ package com.fost.ssacache.config;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
+import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * 
@@ -22,21 +26,37 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.impl.DefaultCacheFactory.class);
 		
-		PropertyValue pv = new PropertyValue("cacheFactory", beanDefinition);
-		pvs.addPropertyValue(pv);
+		GenericBeanDefinition gbd=null;
+		NodeList nl=element.getChildNodes();
+		int len=nl.getLength();
+		ManagedList ml=new ManagedList(len);
+		for(int i=0;i<len;i++){
+			Node node=nl.item(i);
+			if(node.getNodeType()==Node.ELEMENT_NODE&&node.getNodeName().equals("client")){
+				Element ele=(Element)node;
+				gbd=new GenericBeanDefinition();
+				gbd.setBeanClassName(ele.getAttribute("adapter"));
+				gbd.getPropertyValues().addPropertyValue(new PropertyValue("group",ele.getAttribute("group")));
+				gbd.getPropertyValues().addPropertyValue(new PropertyValue("local",ele.getAttribute("local")));
+				gbd.getPropertyValues().addPropertyValue(new PropertyValue("client",new RuntimeBeanReference(ele.getAttribute("name"))));
+				ml.add(gbd);
+			}
+
+		}
+		
+		beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue("clients",ml));
+		
+		
+		pvs.addPropertyValue(new PropertyValue("cacheFactory", beanDefinition));
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyProvider.class);
 		
-		
 		GenericBeanDefinition temp = new GenericBeanDefinition();
 		temp.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyStoreStrategy.class);
-		pv = new PropertyValue("cacheKeyStoreStrategy", temp);
-		beanDefinition.getPropertyValues().addPropertyValue(pv);
+		beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue("cacheKeyStoreStrategy", temp));
 		
-
-		pv = new PropertyValue("cacheKeyProvider", beanDefinition);
-		pvs.addPropertyValue(pv);
+		pvs.addPropertyValue(new PropertyValue("cacheKeyProvider", beanDefinition));
 		
 		return pvs;
 	}

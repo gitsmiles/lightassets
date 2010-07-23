@@ -21,8 +21,7 @@ public class YanBeanDefinitionParser extends BaseBeanDefinitionParser{
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.impl.XMemcachedCacheFactory.class);
 		
-		PropertyValue pv = new PropertyValue("cacheFactory", beanDefinition);
-		pvs.addPropertyValue(pv);
+		pvs.addPropertyValue(new PropertyValue("cacheFactory", beanDefinition));
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyProvider.class);
@@ -30,12 +29,9 @@ public class YanBeanDefinitionParser extends BaseBeanDefinitionParser{
 		
 		GenericBeanDefinition temp = new GenericBeanDefinition();
 		temp.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyStoreStrategy.class);
-		pv = new PropertyValue("cacheKeyStoreStrategy", temp);
-		beanDefinition.getPropertyValues().addPropertyValue(pv);
+		beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue("cacheKeyStoreStrategy", temp));
 		
-
-		pv = new PropertyValue("cacheKeyProvider", beanDefinition);
-		pvs.addPropertyValue(pv);
+		pvs.addPropertyValue(new PropertyValue("cacheKeyProvider", beanDefinition));
 		
 		return pvs;
 	}

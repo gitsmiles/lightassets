@@ -14,6 +14,8 @@ import org.w3c.dom.Element;
  *
  */
 public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
+	
+	
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		
@@ -50,6 +52,7 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 	}
 	
 	protected abstract MutablePropertyValues parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext);
+	
 	
 	
 	public void parseSsaContextSubDefinition(String parentName, ParserContext parserContext) {
