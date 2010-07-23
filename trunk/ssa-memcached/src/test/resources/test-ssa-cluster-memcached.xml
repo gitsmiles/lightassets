@@ -8,11 +8,22 @@
 
 <aop:aspectj-autoproxy/>
 
-<ssa:ssa-cluster mode="active" name="">
+<ssa:ssa-cluster mode="active" name="cluster">
 
-<ssa:client name="" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
+<ssa:client name="fost" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
+<ssa:client name="fost" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
+
+<ssa:client name="ehcache" adapter="com.fost.ssacache.adapter.EhCacheClientAdapter" group="default" local="true"></ssa:client>
 
 
 </ssa:ssa-cluster>
+
+	<bean class="com.fost.ssacache.support.FostCacheServiceFactoryBean" id="fost">
+		<property name="cacheName" value="categoryCache"></property></bean>
+	<bean id="ehcache" class="com.fost.ssacache.support.EhCacheFactoryBean"></bean>
+	<bean id="xmemcached" class="com.fost.ssacache.support.XMemcachedFactoryBean">
+		<property name="InetSocketAddresses">
+			<list>
+				<value>192.168.1.102:11212</value></list></property></bean>
 
 </beans>
