@@ -16,8 +16,8 @@ public class FostClientAdapter extends AbstractClientAdapter{
 	
 	@Override
 	public void setClient(Object obj) {
-		if(cacheService.getClass().isAssignableFrom(obj.getClass())){
-			cacheService=(ICacheService)cacheService;
+		if(ICacheService.class.isAssignableFrom(obj.getClass())){
+			cacheService=(ICacheService)obj;
 		}else{
 			throw new java.lang.RuntimeException(FostClientAdapter.class.getName()+" is wrong!");
 		}
