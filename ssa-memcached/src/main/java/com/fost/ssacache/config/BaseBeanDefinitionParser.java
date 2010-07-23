@@ -1,5 +1,6 @@
 package com.fost.ssacache.config;
 
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
@@ -25,9 +26,9 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.SsaContext.class);
 		beanDefinition.setAbstract(true);
-		java.util.List<PropertyValue> pv=this.parseSsaContextBeanPropertyDefinition(element,parserContext);
-		for(java.util.Iterator<PropertyValue> it=pv.iterator();it.hasNext();){
-			beanDefinition.getPropertyValues().addPropertyValue(it.next());
+		PropertyValue[] pvs=this.parseSsaContextBeanPropertyDefinition(element,parserContext).getPropertyValues();
+		for(int i=0;i<pvs.length;i++){
+			beanDefinition.getPropertyValues().addPropertyValue(pvs[i]);
 		}
 		
 		org.springframework.beans.factory.config.BeanDefinitionHolder bdh=
@@ -48,7 +49,7 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 		return null;
 	}
 	
-	protected abstract java.util.List<PropertyValue> parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext);
+	protected abstract MutablePropertyValues parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext);
 	
 	
 	public void parseSsaContextSubDefinition(String parentName, ParserContext parserContext) {
