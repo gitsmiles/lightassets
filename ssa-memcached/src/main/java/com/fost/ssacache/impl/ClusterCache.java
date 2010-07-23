@@ -128,17 +128,22 @@ public class ClusterCache implements Cache{
 		case active:
 			String group=this.getMasterClientAdapter(key).getGroup();
 			java.util.List<ClientAdapter> list=this.groupAdapterMap.get(group);
+			boolean miss=false;
 			for(ClientAdapter client:list){
 				obj=client.get(key, timeout);
-				if(obj!=null) {
+				if(obj==null) {
+					miss=true;
+					continue;
+				}
+				if(miss&&obj!=null) {
 					RecoverCacheEvent event=new RecoverCacheEvent();
 					event.setKey(key);
 					event.setValue(obj);
 					event.setExp(30);
 					event.setTimeout(timeout);
 					EventManager.getInstance().asynPublishEvent(event);
-					return obj;
 				}
+				if(obj!=null) return obj;
 			}
 			break;
 		case standby:
