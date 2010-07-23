@@ -61,7 +61,8 @@ public class DefaultCache implements Cache{
 	public Object get(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		if(this.existLocalCache()){
-			this.getLocalClientAdapter(key).get(key, timeout);
+			Object obj=this.getLocalClientAdapter(key).get(key, timeout);
+			if(obj!=null) return obj;
 		}
 		return this.getRemoteClientAdapter(key).get(key, timeout);
 	}
