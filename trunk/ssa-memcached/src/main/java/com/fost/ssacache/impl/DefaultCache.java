@@ -23,7 +23,7 @@ public class DefaultCache implements Cache{
 	}
 	
 	@Override
-	public boolean add(String key, int exp, Object value, long timeout)
+	public boolean add(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		if(this.existLocalCache()){
 			this.getLocalClientAdapter(key).add(key, exp, value, timeout);
@@ -41,7 +41,7 @@ public class DefaultCache implements Cache{
 	}
 
 	@Override
-	public boolean delete(String key, long timeout) throws TimeoutException,
+	public boolean delete(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		if(this.existLocalCache()){
 			this.getLocalClientAdapter(key).delete(key, timeout);
@@ -58,7 +58,7 @@ public class DefaultCache implements Cache{
 	}
 
 	@Override
-	public Object get(String key, long timeout) throws TimeoutException,
+	public Object get(String key, int timeout) throws TimeoutException,
 			InterruptedException {
 		if(this.existLocalCache()){
 			this.getLocalClientAdapter(key).get(key, timeout);
@@ -67,7 +67,7 @@ public class DefaultCache implements Cache{
 	}
 
 	@Override
-	public boolean set(String key, int exp, Object value, long timeout)
+	public boolean set(String key, int exp, Object value, int timeout)
 			throws TimeoutException, InterruptedException {
 		if(this.existLocalCache()){
 			this.getLocalClientAdapter(key).set(key, exp, value, timeout);

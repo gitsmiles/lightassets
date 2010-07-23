@@ -14,7 +14,7 @@ public class AddCacheEvent extends AbstractCacheEvent{
 
 	private int exp;
 	private Object value;
-	private long timeout;
+	private int timeout;
 	
 	@Override
 	public EventEnum getEventEnum() {
@@ -37,11 +37,11 @@ public class AddCacheEvent extends AbstractCacheEvent{
 		this.value = value;
 	}
 
-	public final long getTimeout() {
+	public final int getTimeout() {
 		return timeout;
 	}
 
-	public final void setTimeout(long timeout) {
+	public final void setTimeout(int timeout) {
 		this.timeout = timeout;
 	}
 
