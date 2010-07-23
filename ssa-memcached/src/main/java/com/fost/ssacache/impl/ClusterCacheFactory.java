@@ -6,6 +6,7 @@ import com.fost.ssacache.ClientAdapter;
 
 public class ClusterCacheFactory implements CacheFactory{
 	private String mode;
+	private String name;
 	private java.util.List<ClientAdapter> clients;
 	
 	
@@ -22,10 +23,22 @@ public class ClusterCacheFactory implements CacheFactory{
 	public String getMode() {
 		return mode;
 	}
-
+	
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
+	
+	
+
+	public final String getName() {
+		return name;
+	}
+
+
+	public final void setName(String name) {
+		this.name = name;
+	}
+
 
 	public final java.util.List<ClientAdapter> getClients() {
 		return clients;
