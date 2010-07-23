@@ -17,5 +17,5 @@ public interface ClientAdapter extends Cache{
 	
 	public abstract String getGroup();
 	
-	public abstract String setGroup(String group);
+	public abstract void setGroup(String group);
 }
