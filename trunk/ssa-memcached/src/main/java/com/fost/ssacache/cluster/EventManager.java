@@ -3,6 +3,10 @@ package com.fost.ssacache.cluster;
 import java.util.concurrent.TimeoutException;
 
 import com.fost.ssacache.ClientAdapter;
+import com.fost.ssacache.cluster.listener.AddEventListener;
+import com.fost.ssacache.cluster.listener.DeleteEventListener;
+import com.fost.ssacache.cluster.listener.RecoverEventListener;
+import com.fost.ssacache.cluster.listener.SetEventListener;
 
 
 /**
@@ -20,6 +24,10 @@ public final class EventManager {
 	private EventManager(){
 		this.events=new java.util.concurrent.LinkedBlockingQueue<CacheEvent>(6);
 		this.listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
+		this.listeners.add(new AddEventListener());
+		this.listeners.add(new DeleteEventListener());
+		this.listeners.add(new RecoverEventListener());
+		this.listeners.add(new SetEventListener());
 		
 		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
