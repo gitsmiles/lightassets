@@ -17,6 +17,6 @@
 </ssa:ssa-cache>
 	<bean class="com.fost.ssacache.support.FostCacheServiceFactoryBean" id="fost">
 		<property name="cacheName" value="categoryCache"></property></bean>
-	<bean id="ehcache" class=""></bean>
+	<bean id="ehcache" class="com.fost.ssacache.support.EhCacheFactoryBean"></bean>
 
 </beans>
