@@ -40,7 +40,7 @@
 
 	<xsd:complexType name="clientType">
 		<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
-		<xsd:attribute name="group" type="xsd:string" default="defult"></xsd:attribute>
+		<xsd:attribute name="group" type="xsd:string" default="default"></xsd:attribute>
         <xsd:attribute name="local" type="xsd:boolean" default="false"></xsd:attribute>
         <xsd:attribute name="adapter" type="xsd:string"></xsd:attribute>
 	</xsd:complexType>
