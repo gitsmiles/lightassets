@@ -32,7 +32,7 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		ManagedList ml=new ManagedList(len);
 		for(int i=0;i<len;i++){
 			Node node=nl.item(i);
-			if(node.getNodeType()==Node.ELEMENT_NODE&&node.getNodeName().equals("client")){
+			if(node.getNodeType()==Node.ELEMENT_NODE&&node.getLocalName().equals("client")){
 				Element ele=(Element)node;
 				gbd=new GenericBeanDefinition();
 				gbd.setBeanClassName(ele.getAttribute("adapter"));
