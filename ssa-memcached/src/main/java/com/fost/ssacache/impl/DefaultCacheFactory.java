@@ -3,8 +3,6 @@
  */
 package com.fost.ssacache.impl;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.CacheFactory;
 import com.fost.ssacache.ClientAdapter;
@@ -13,28 +11,28 @@ import com.fost.ssacache.ClientAdapter;
  * @author Janly
  *
  */
-public class DefaultCacheFactory implements CacheFactory,org.springframework.context.ApplicationContextAware{
+public class DefaultCacheFactory implements CacheFactory{
 
-	private ApplicationContext applicationContext;
+	private java.util.List<ClientAdapter> clients;
 	@Override
 	public Cache createCache() {
 		
-		ClientAdapter clientAdapter=null;
 		DefaultCache cache=new DefaultCache();
 		
-		//TODO:
+		for(ClientAdapter client:clients){
+			cache.addClientAdapter(client);
+		}
 		
 		
 		return cache;
 	}
-	
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext)
-			throws BeansException {
-		this.applicationContext=applicationContext;
+	public final java.util.List<ClientAdapter> getClients() {
+		return clients;
 	}
-
+	public final void setClients(java.util.List<ClientAdapter> clients) {
+		this.clients = clients;
+	}
 	
-
+	
 	
 }
