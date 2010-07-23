@@ -1,7 +1,6 @@
 package com.fost.ssacache.config;
 
-import java.util.List;
-
+import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -16,15 +15,15 @@ public class SpyBeanDefinitionParser extends BaseBeanDefinitionParser{
 
 	
 	@Override
-	protected List<PropertyValue> parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext) {
-		List<PropertyValue> pvs=new java.util.ArrayList<PropertyValue>();
+	protected MutablePropertyValues parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext) {
+		MutablePropertyValues pvs=new MutablePropertyValues();
 		
 		
 		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.impl.SpyMemcachedCacheFactory.class);
 		
 		PropertyValue pv = new PropertyValue("cacheFactory", beanDefinition);
-		pvs.add(pv);
+		pvs.addPropertyValue(pv);
 		
 		beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyProvider.class);
@@ -37,7 +36,7 @@ public class SpyBeanDefinitionParser extends BaseBeanDefinitionParser{
 		
 
 		pv = new PropertyValue("cacheKeyProvider", beanDefinition);
-		pvs.add(pv);
+		pvs.addPropertyValue(pv);
 		
 		return pvs;
 	}
