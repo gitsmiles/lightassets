@@ -9,7 +9,7 @@ package com.fost.ssacache;
  */
 public interface ClientAdapter extends Cache{
 
-	public abstract boolean setClient(Object obj);
+	public abstract void setClient(Object obj);
 	
 	public abstract void setLocal(boolean local);
 	
