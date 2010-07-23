@@ -1,5 +1,7 @@
 package com.fost.ssacache;
 
+import com.fost.ssacache.cluster.EventListener;
+
 
 /**
  * 
@@ -9,6 +11,8 @@ package com.fost.ssacache;
 public interface CacheFactory {
 
 	public Cache createCache();
+	
+	public void addListener(EventListener listener);
 	
 
 }
