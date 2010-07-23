@@ -6,6 +6,8 @@ package com.fost.ssacache.impl;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.CacheFactory;
 import com.fost.ssacache.ClientAdapter;
+import com.fost.ssacache.cluster.EventListener;
+import com.fost.ssacache.cluster.EventManager;
 
 /**
  * @author Janly
@@ -23,6 +25,11 @@ public class DefaultCacheFactory implements CacheFactory{
 		return cache;
 	}
 	
+	@Override
+	public void addListener(EventListener listener) {
+		EventManager.getInstance().addListener(listener);
+		
+	}
 	
 	public final java.util.List<ClientAdapter> getClients() {
 		return clients;

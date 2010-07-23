@@ -3,6 +3,8 @@ package com.fost.ssacache.impl;
 import com.fost.ssacache.Cache;
 import com.fost.ssacache.CacheFactory;
 import com.fost.ssacache.ClientAdapter;
+import com.fost.ssacache.cluster.EventListener;
+import com.fost.ssacache.cluster.EventManager;
 
 public class ClusterCacheFactory implements CacheFactory{
 	private String mode;
@@ -18,6 +20,14 @@ public class ClusterCacheFactory implements CacheFactory{
 		}
 		return clusterCache;
 	}
+
+	
+
+	@Override
+	public void addListener(EventListener listener) {
+		EventManager.getInstance().addListener(listener);
+	}
+
 
 
 	public String getMode() {
