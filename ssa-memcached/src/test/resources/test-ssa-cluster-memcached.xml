@@ -8,8 +8,8 @@
 
 <aop:aspectj-autoproxy/>
 
-<ssa:ssa-cache>
-<ssa:client adapter="com.fost.ssacache.adapter.FostClientAdapter" name="fost" group="defult" local="false"/>
-</ssa:ssa-cache>
+<ssa:ssa-cluster>
+<ssa:client adapter="com.fost.ssacache.adapter.FostClientAdapter" name="fost" local="false"/><ssa:client></ssa:client>
+</ssa:ssa-cluster>
 
 </beans>
