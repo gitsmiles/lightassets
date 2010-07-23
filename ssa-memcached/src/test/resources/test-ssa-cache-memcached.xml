@@ -11,9 +11,12 @@
 <ssa:ssa-cache>
 
 
-<ssa:client name="" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
-
+<ssa:client name="fost" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
+<ssa:client name="ehcache" adapter="com.fost.ssacache.adapter.EhCacheClientAdapter" group="default" local="true"></ssa:client>
 
 </ssa:ssa-cache>
+	<bean class="com.fost.ssacache.support.FostCacheServiceFactoryBean" id="fost">
+		<property name="cacheName" value="categoryCache"></property></bean>
+	<bean id="ehcache" class=""></bean>
 
 </beans>
