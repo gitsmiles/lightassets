@@ -2,7 +2,7 @@ package com.fost.ssacache.config;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
-import org.springframework.beans.factory.config.RuntimeBeanReference;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -23,8 +23,8 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		MutablePropertyValues pvs=new MutablePropertyValues();
 		
 		
-		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.impl.DefaultCacheFactory.class);
+		BeanDefinition beanDefinition = new GenericBeanDefinition();
+		beanDefinition.setBeanClassName("com.fost.ssacache.impl.DefaultCacheFactory");
 		
 		GenericBeanDefinition gbd=null;
 		NodeList nl=element.getChildNodes();
@@ -34,12 +34,7 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 			Node node=nl.item(i);
 			if(node.getNodeType()==Node.ELEMENT_NODE&&node.getLocalName().equals("client")){
 				Element ele=(Element)node;
-				gbd=new GenericBeanDefinition();
-				gbd.setBeanClassName(ele.getAttribute("adapter"));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("group",ele.getAttribute("group")));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("local",ele.getAttribute("local")));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("client",new RuntimeBeanReference(ele.getAttribute("name"))));
-				ml.add(gbd);
+				ml.add(this.parseClientElement(ele, parserContext));
 			}
 
 		}
@@ -50,7 +45,7 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		pvs.addPropertyValue(new PropertyValue("cacheFactory", beanDefinition));
 		
 		beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyProvider.class);
+		beanDefinition.setBeanClassName("com.fost.ssacache.key.DefaultCacheKeyProvider");
 		
 		GenericBeanDefinition temp = new GenericBeanDefinition();
 		temp.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyStoreStrategy.class);

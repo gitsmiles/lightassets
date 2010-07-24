@@ -2,7 +2,7 @@ package com.fost.ssacache.config;
 
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
-import org.springframework.beans.factory.config.RuntimeBeanReference;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -17,14 +17,15 @@ import org.w3c.dom.NodeList;
  */
 public class ClusterBeanDefinitionParser extends BaseBeanDefinitionParser{
 
+
 	@Override
 	protected MutablePropertyValues parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext) {
 		
 		MutablePropertyValues pvs=new MutablePropertyValues();
 		
 		
-		GenericBeanDefinition beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.impl.ClusterCacheFactory.class);
+		BeanDefinition beanDefinition = new GenericBeanDefinition();
+		beanDefinition.setBeanClassName("com.fost.ssacache.impl.ClusterCacheFactory");
 		
 		//parse attribute
 		
@@ -32,7 +33,7 @@ public class ClusterBeanDefinitionParser extends BaseBeanDefinitionParser{
 		beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue("mode",element.getAttribute("mode")));
 		
 		//parse client element
-		GenericBeanDefinition gbd=null;
+		BeanDefinition gbd=null;
 		NodeList nl=element.getChildNodes();
 		int len=nl.getLength();
 		ManagedList ml=new ManagedList(len);
@@ -40,12 +41,7 @@ public class ClusterBeanDefinitionParser extends BaseBeanDefinitionParser{
 			Node node=nl.item(i);
 			if(node.getNodeType()==Node.ELEMENT_NODE&&node.getLocalName().equals("client")){
 				Element ele=(Element)node;
-				gbd=new GenericBeanDefinition();
-				gbd.setBeanClassName(ele.getAttribute("adapter"));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("group",ele.getAttribute("group")));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("local",ele.getAttribute("local")));
-				gbd.getPropertyValues().addPropertyValue(new PropertyValue("client",new RuntimeBeanReference(ele.getAttribute("name"))));
-				ml.add(gbd);
+				ml.add(this.parseClientElement(ele, parserContext));
 			}
 
 		}
@@ -57,7 +53,7 @@ public class ClusterBeanDefinitionParser extends BaseBeanDefinitionParser{
 		
 		////////////////////////////////
 		beanDefinition = new GenericBeanDefinition();
-		beanDefinition.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyProvider.class);
+		beanDefinition.setBeanClassName("com.fost.ssacache.key.DefaultCacheKeyProvider");
 		
 		GenericBeanDefinition temp = new GenericBeanDefinition();
 		temp.setBeanClass(com.fost.ssacache.key.DefaultCacheKeyStoreStrategy.class);
