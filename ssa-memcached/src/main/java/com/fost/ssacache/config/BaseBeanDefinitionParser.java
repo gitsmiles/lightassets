@@ -3,6 +3,7 @@ package com.fost.ssacache.config;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
@@ -53,6 +54,16 @@ public abstract class BaseBeanDefinitionParser implements BeanDefinitionParser{
 	
 	protected abstract MutablePropertyValues parseSsaContextBeanPropertyDefinition(Element element, ParserContext parserContext);
 	
+	
+	protected BeanDefinition parseClientElement(Element element, ParserContext parserContext){
+		BeanDefinition gbd=new GenericBeanDefinition();
+		gbd.setBeanClassName(element.getAttribute("adapter"));
+		gbd.getPropertyValues().addPropertyValue(new PropertyValue("group",element.getAttribute("group")));
+		gbd.getPropertyValues().addPropertyValue(new PropertyValue("local",element.getAttribute("local")));
+		gbd.getPropertyValues().addPropertyValue(new PropertyValue("weight",element.getAttribute("weight")));
+		gbd.getPropertyValues().addPropertyValue(new PropertyValue("client",new RuntimeBeanReference(element.getAttribute("name"))));
+		return gbd;
+	}
 	
 	
 	public void parseSsaContextSubDefinition(String parentName, ParserContext parserContext) {
