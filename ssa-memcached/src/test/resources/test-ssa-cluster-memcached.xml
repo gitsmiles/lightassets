@@ -11,7 +11,7 @@
 <ssa:ssa-cluster mode="active" name="cluster">
 
 <ssa:client name="fost" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
-<ssa:client name="fost" adapter="com.fost.ssacache.adapter.FostClientAdapter" group="default" local="false"></ssa:client>
+<ssa:client name="xmemcached" adapter="com.fost.ssacache.adapter.XMemcachedClientAdapter" group="default" local="false"></ssa:client>
 
 <ssa:client name="ehcache" adapter="com.fost.ssacache.adapter.EhCacheClientAdapter" group="default" local="true"></ssa:client>
 
@@ -22,7 +22,7 @@
 		<property name="cacheName" value="categoryCache"></property></bean>
 	<bean id="ehcache" class="com.fost.ssacache.support.EhCacheFactoryBean"></bean>
 	<bean id="xmemcached" class="com.fost.ssacache.support.XMemcachedFactoryBean">
-		<property name="InetSocketAddresses">
+		<property name="inetSocketAddresses">
 			<list>
 				<value>192.168.1.102:11212</value></list></property></bean>
 
