@@ -8,6 +8,10 @@ package com.fost.ssacache;
  *
  */
 public interface ClientAdapter extends Cache{
+	
+	public abstract int getWeight();
+	
+	public abstract void setWeight(int weight);
 
 	public abstract void setClient(Object obj);
 	
