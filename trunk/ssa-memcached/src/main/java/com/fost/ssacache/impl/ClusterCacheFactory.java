@@ -25,7 +25,7 @@ public class ClusterCacheFactory implements CacheFactory{
 
 	@Override
 	public void addListener(EventListener listener) {
-		EventManager.getInstance().addListener(listener);
+		EventManager.addListener(listener);
 	}
 
 
