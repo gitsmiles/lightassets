@@ -9,6 +9,19 @@ public abstract class AbstractClientAdapter implements ClientAdapter {
 	private String group;
 	
 	private boolean local;
+	
+	private int weight;
+	
+
+	@Override
+	public int getWeight() {
+		return this.weight;
+	}
+
+	@Override
+	public void setWeight(int weight) {
+		this.weight=weight;
+	}
 
 	@Override
 	public String getGroup() {
