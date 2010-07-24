@@ -4,6 +4,10 @@ import java.util.concurrent.TimeoutException;
 
 import com.fost.ssacache.ClientAdapter;
 
+/**
+ * @author Janly
+ *
+ */
 public abstract class AbstractClientAdapter implements ClientAdapter {
 	
 	private String group;
