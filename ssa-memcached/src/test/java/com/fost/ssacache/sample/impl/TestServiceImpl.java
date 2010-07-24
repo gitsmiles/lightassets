@@ -10,7 +10,7 @@ import com.fost.ssacache.sample.TestService;
 public class TestServiceImpl implements TestService {
 
 	@Override
-	@com.fost.ssacache.annotation.ReadFromCache(namespace="hello")
+	//@com.fost.ssacache.annotation.ReadFromCache(namespace="www")
 	public String hello(String a,String b) {
 		return a+b;
 	}
