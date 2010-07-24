@@ -15,20 +15,23 @@ import com.fost.ssacache.cluster.listener.SetEventListener;
  */
 public final class EventManager {
 	
+	private static EventManager instance;
+	
+	private static java.util.Set<EventListener> listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
+	{
+		listeners.add(new AddEventListener());
+		listeners.add(new DeleteEventListener());
+		listeners.add(new RecoverEventListener());
+		listeners.add(new SetEventListener());
+	}
+	
 	private java.util.concurrent.BlockingQueue<CacheEvent> events;
-	private java.util.Set<EventListener> listeners;
 	private java.util.Map<String, java.util.List<ClientAdapter>> groupAdapterMap;
 	private int threadPoolSize=30;
-	private static EventManager instance;
+	
 	
 	private EventManager(){
 		this.events=new java.util.concurrent.LinkedBlockingQueue<CacheEvent>(6);
-		this.listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
-		this.listeners.add(new AddEventListener());
-		this.listeners.add(new DeleteEventListener());
-		this.listeners.add(new RecoverEventListener());
-		this.listeners.add(new SetEventListener());
-		
 		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
@@ -61,7 +64,7 @@ public final class EventManager {
 	
 	public final void synPublishEvent(CacheEvent cacheEvent) throws TimeoutException,InterruptedException{
 		cacheEvent.setEventManager(this);
-		for(EventListener listener:this.listeners){
+		for(EventListener listener:listeners){
 			if(listener.captureEvent(cacheEvent)) listener.executeEvent(cacheEvent,true);
 		}
 	}
@@ -78,14 +81,10 @@ public final class EventManager {
 	}
 	
 	
-	public final void addListener(EventListener listener){
-		this.listeners.add(listener);
+	public static final void addListener(EventListener listener){
+		listeners.add(listener);
 	}
 	
-	private final java.util.Set<EventListener> getListeners(){
-		return this.listeners;
-	}
-
 
 	public final int getThreadPoolSize() {
 		return threadPoolSize;
@@ -143,7 +142,7 @@ public final class EventManager {
 		}
 		@Override
 		public void run() {
-			for(EventListener listener:EventManager.getInstance().getListeners()){
+			for(EventListener listener:listeners){
 				if(listener.captureEvent(event)) {
 					try {
 						listener.executeEvent(event,false);
