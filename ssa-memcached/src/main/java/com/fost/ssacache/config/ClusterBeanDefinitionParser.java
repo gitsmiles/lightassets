@@ -33,7 +33,6 @@ public class ClusterBeanDefinitionParser extends BaseBeanDefinitionParser{
 		beanDefinition.getPropertyValues().addPropertyValue(new PropertyValue("mode",element.getAttribute("mode")));
 		
 		//parse client element
-		BeanDefinition gbd=null;
 		NodeList nl=element.getChildNodes();
 		int len=nl.getLength();
 		ManagedList ml=new ManagedList(len);
