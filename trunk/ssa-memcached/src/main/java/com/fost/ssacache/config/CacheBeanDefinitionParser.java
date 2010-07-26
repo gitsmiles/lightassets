@@ -26,7 +26,6 @@ public class CacheBeanDefinitionParser extends BaseBeanDefinitionParser{
 		BeanDefinition beanDefinition = new GenericBeanDefinition();
 		beanDefinition.setBeanClassName("com.fost.ssacache.impl.DefaultCacheFactory");
 		
-		GenericBeanDefinition gbd=null;
 		NodeList nl=element.getChildNodes();
 		int len=nl.getLength();
 		ManagedList ml=new ManagedList(len);
