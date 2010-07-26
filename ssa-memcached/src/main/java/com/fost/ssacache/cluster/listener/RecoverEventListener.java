@@ -10,7 +10,6 @@ import com.fost.ssacache.cluster.CacheEvent;
 import com.fost.ssacache.cluster.ClusterUtil;
 import com.fost.ssacache.cluster.EventEnum;
 import com.fost.ssacache.cluster.EventListener;
-import com.fost.ssacache.cluster.event.AddCacheEvent;
 import com.fost.ssacache.cluster.event.RecoverCacheEvent;
 
 /**
