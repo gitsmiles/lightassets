@@ -14,7 +14,7 @@ import com.fost.ssacache.cluster.listener.SetEventListener;
  *
  */
 public final class EventManager {
-	private final org.apache.commons.logging.Log logger=org.apache.commons.logging.LogFactory.getLog(EventManager.class);
+	private final org.slf4j.Logger logger=org.slf4j.LoggerFactory.getLogger(EventManager.class);
 	private static EventManager instance;
 	
 	private static java.util.Set<EventListener> listeners=java.util.Collections.synchronizedSet(new java.util.HashSet<EventListener>(6));
