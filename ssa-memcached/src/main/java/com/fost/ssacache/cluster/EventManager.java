@@ -35,15 +35,19 @@ public final class EventManager {
 		this.groupAdapterMap=new java.util.concurrent.ConcurrentHashMap<String, java.util.List<ClientAdapter>>(1);
 	}
 	
+	public void start(){
+		Thread thread=new EventThread(instance);
+		thread.setDaemon(true);
+		thread.start();
+	}
+	
 	
 	public static final EventManager getInstance(){
 		if(instance==null){
 			synchronized(EventManager.class){
 				if(instance==null){
 					instance=new EventManager();
-					Thread thread=new EventThread(instance);
-					thread.setDaemon(true);
-					thread.start();
+					instance.start();
 				}
 			}
 		}
