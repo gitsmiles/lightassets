@@ -27,7 +27,7 @@ public class MapResourceEvaluatorTest {
 		try {
 			long st=System.currentTimeMillis();
 			Object obj=evaluator.evaluate(null,map, p);
-			
+			org.junit.Assert.assertEquals("1.0", obj.toString());
 			System.out.println(System.currentTimeMillis()-st);
 		} catch (EvaluateException e) {
 			org.junit.Assert.fail();
