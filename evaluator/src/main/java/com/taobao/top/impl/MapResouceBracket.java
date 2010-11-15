@@ -44,7 +44,7 @@ public class MapResouceBracket extends AbstractPriorityBracket<Map<String,Object
 	
 	
 	private Operator<?> smartWrapResource(Object obj){
-		if(obj instanceof Operator) return (Operator<?>)obj;
+		if(obj instanceof Operator<?>) return (Operator<?>)obj;
 		
 		if(org.apache.commons.lang.math.NumberUtils.isNumber(obj.toString().trim())){
 			return new DoubleOperator(obj.toString().trim());
@@ -64,8 +64,14 @@ public class MapResouceBracket extends AbstractPriorityBracket<Map<String,Object
 			return new NumberOperator().setValue((Number)obj);
 		}
 		
-		if(obj instanceof List){
-			return new DoubleListOperator().setValue((List<Double>)obj);
+		if(obj instanceof List<?>){
+			List<?> list=(List<?>)obj;
+			List<Double> li=new java.util.ArrayList<Double>();
+			for(int i=0;i<list.size();i++){
+				if(list.get(i) instanceof Double) li.add((Double)list.get(i));
+			}
+			return new DoubleListOperator().setValue(li);
+			
 		}
 		
 		return Operator.nullInstance;
