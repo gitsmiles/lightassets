@@ -10,7 +10,7 @@ public class MapResourceEvaluatorTest {
 	public void testMapResourceEvaluator() {
 		String exp="$logflag$!=session&f()+f($errorCode$=0,$timestamp4$!=-1)&($errorCode$=0&$timestamp4$!=-1&$timestamp4$<10000)";
 		//-3+-5/-1-4*-5===>22
-		exp="sum($a$)";
+		exp="max($a$)+min($a$)+sum($a$)*average($a$)";
 		String res="0,61.152.169.197,null,xml,12011172,taobao.taobaoke.items.get,0,0,172.23.21.129,null,2.0,md5,3,null,4535000,13,15,1287849657193,0,0,-1,2,0,0,0,13,0,0,3,3";
 		
 		String[] re=res.split(",");
@@ -19,7 +19,7 @@ public class MapResourceEvaluatorTest {
 			map.put(""+(i+1),re[i]);
 		}
 
-		map.put("0", "1");
+		map.put("0", "1,2,3,45,5,6,543,53,2345,45");
  
 		MapResourceEvaluator evaluator=new MapResourceEvaluator(exp);
 		evaluator.setBracketClassName(MapResouceBracket.class.getName());
@@ -27,7 +27,7 @@ public class MapResourceEvaluatorTest {
 		try {
 			long st=System.currentTimeMillis();
 			Object obj=evaluator.evaluate(null,map, p);
-			org.junit.Assert.assertEquals("1.0", obj.toString());
+			org.junit.Assert.assertEquals(""+(2345+1+(1+2+3+45+5+6+543+53+2345+45)*(1+2+3+45+5+6+543+53+2345+45)/(double)10), obj.toString());
 			System.out.println(System.currentTimeMillis()-st);
 		} catch (EvaluateException e) {
 			org.junit.Assert.fail();
