@@ -64,6 +64,16 @@ public class MapResouceBracket extends AbstractPriorityBracket<Map<String,Object
 			return new NumberOperator().setValue((Number)obj);
 		}
 		
+		
+		if(obj instanceof double[]){
+			double[] d=(double[])obj;
+			List<Double> li=new java.util.ArrayList<Double>();
+			for(int i=0;i<d.length;i++){
+				li.add(d[i]);
+			}
+			return new DoubleListOperator().setValue(li);
+		}
+		
 		if(obj instanceof List<?>){
 			List<?> list=(List<?>)obj;
 			List<Double> li=new java.util.ArrayList<Double>();
