@@ -4,10 +4,15 @@
 package com.taobao.top.function;
 
 import com.taobao.top.function.base.*;
+import com.taobao.top.function.clustering.KMeansFunction;
+import com.taobao.top.function.ext.AbsFunction;
 import com.taobao.top.function.ext.AverageFunction;
 import com.taobao.top.function.ext.ExpFunction;
 import com.taobao.top.function.ext.MaxFunction;
 import com.taobao.top.function.ext.MinFunction;
+import com.taobao.top.function.ext.PowFunction;
+import com.taobao.top.function.ext.RandomFunction;
+import com.taobao.top.function.ext.RoundFunction;
 import com.taobao.top.function.ext.SumFunction;
 
 /**
@@ -50,11 +55,18 @@ public abstract class AbstractFunctionRegistry implements FunctionRegistry{
 				XorrFunction.class,
 				
 				//====================
+				AbsFunction.class,
+				AverageFunction.class,
+				ExpFunction.class,
 				MaxFunction.class,
 				MinFunction.class,
-				AverageFunction.class,
+				PowFunction.class,
+				RandomFunction.class,
+				RoundFunction.class,
 				SumFunction.class,
-				ExpFunction.class
+				
+				//==================
+				KMeansFunction.class
 		};
 		
 		Function f=null;
