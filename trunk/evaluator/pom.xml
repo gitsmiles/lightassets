@@ -57,6 +57,13 @@
 
 
   <build>
+  		<sourceDirectory>src/main/java</sourceDirectory>
+		<outputDirectory>target/classes</outputDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<testOutputDirectory>target/test-classes</testOutputDirectory>
+		
+		
+		
   	<pluginManagement>
   		<plugins>
   			<plugin>
@@ -74,6 +81,21 @@
   				<artifactId>maven-resources-plugin</artifactId>
   				<version>2.4.3</version>
   			</plugin>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-eclipse-plugin</artifactId>
+  				<version>2.9-SNAPSHOT</version>
+  			</plugin>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-site-plugin</artifactId>
+  				<version>3.0-beta-3</version>
+  			</plugin>
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-jar-plugin</artifactId>
+  				<version>2.3.1</version>
+  			</plugin>
   		</plugins>
   	</pluginManagement>
   	<plugins>
@@ -86,6 +108,19 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
   		</plugin>
+  		
+  			<plugin>
+  				<groupId>org.apache.maven.plugins</groupId>
+  				<artifactId>maven-source-plugin</artifactId>
+  				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+  			</plugin>
   	</plugins>
   </build>
 
