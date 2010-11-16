@@ -2,12 +2,14 @@
  * 
  */
 package com.taobao.top.impl;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import com.taobao.top.AbstractExpressionEvaluator;
 import com.taobao.top.CalContext;
 import com.taobao.top.EvaluateException;
+import com.taobao.top.function.Function;
 
 
 /**
@@ -35,14 +37,26 @@ public class MapResourceEvaluator extends AbstractExpressionEvaluator<Map<String
 	 */
 	public static class Utility{
 		
-		public static Object evaluate(CalContext<?> context,String conditions,Map<String,Object> resource,Properties property){
+		public static Object evaluate(CalContext<?> context,String conditions,Map<String,Object> resource,Properties property,List<Function> funs){
 			if(conditions==null||"".equals(conditions)) return true;
+			try {
+				return getEvaluator(context,conditions,resource,property,funs).evaluate(context,resource, property);
+			} catch (EvaluateException e) {
+				throw new java.lang.RuntimeException(e.getMessage());
+			}
+		}
+		
+		private static MapResourceEvaluator getEvaluator(CalContext<?> context,String conditions,Map<String,Object> resource,Properties property,List<Function> funs){
 			MapResourceEvaluator evaluator=null;
-			//=============High cache,when heap out of memory it removed=========
 			EvaluatorReference ref=evaluatorRef.get(conditions);
 			if(ref==null){
 				evaluator=new MapResourceEvaluator(conditions);
 				evaluator.setBracketClassName(MapResouceBracket.class.getName());
+				if(funs!=null){
+					for(Function fun:funs){
+						evaluator.registerFunction(fun);
+					}
+				}
 				evaluator.init();
 				evaluatorRef.put(conditions,new EvaluatorReference(conditions,evaluator));
 			}else{
@@ -55,9 +69,13 @@ public class MapResourceEvaluator extends AbstractExpressionEvaluator<Map<String
 				
 			}
 			
-			//========================================================================
+			return evaluator;
+		}
+		
+		public static Object evaluate(CalContext<?> context,String conditions,Map<String,Object> resource,Properties property){
+			if(conditions==null||"".equals(conditions)) return true;
 			try {
-				return evaluator.evaluate(context,resource, property);
+				return getEvaluator(context,conditions,resource,property,null).evaluate(context,resource, property);
 			} catch (EvaluateException e) {
 				throw new java.lang.RuntimeException(e.getMessage());
 			}

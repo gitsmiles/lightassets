@@ -31,9 +31,11 @@ public class MapResouceBracket extends AbstractPriorityBracket<Map<String,Object
 			if(so.value().startsWith(PlaceHolder.instance.getVarPlaceHolder())&&
 					so.value().endsWith(PlaceHolder.instance.getVarPlaceHolder())){
 				String temp=so.value().substring(1,so.value().length()-1);
-				if(this.property.get(temp)!=null){
+				if(this.property!=null&&this.property.get(temp)!=null){
 					String key=this.property.get(temp).toString().trim();
 					return this.smartWrapResource(resource.get(key));
+				}else{
+					return this.smartWrapResource(resource.get(temp));
 				}
 
 			} 
