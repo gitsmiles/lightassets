@@ -24,18 +24,7 @@
   			<jdk>1.6</jdk>
   		</activation>
   	</profile>
-  </profiles>
-  
-  
-  <modules>
-        <module>ssa-cache</module>
-        <module>light-aop</module>
-        <module>light-spring</module>
-        <module>light-template</module>
-        <module>prop-provider</module>
-        <module>exp-evaluator</module>
-  </modules>
-  
+  </profiles> 
   
   <build>
   
