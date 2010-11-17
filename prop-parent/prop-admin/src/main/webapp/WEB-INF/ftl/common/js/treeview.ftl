@@ -1,1 +1,0 @@
-<script type="text/javascript" src="<@website.static/>/baportal/js/jquery.treeview.js"></script>
