@@ -153,54 +153,56 @@
   
 
   <dependencyManagement>
+
     <dependencies> 
+      <!-- Apache -->
+          <dependency>
+   <groupId>org.apache.struts</groupId>
+    	<artifactId>struts2-core</artifactId>
+    	<version>2.2.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
     <dependency>
-      <groupId>aopalliance</groupId>
-      <artifactId>aopalliance</artifactId>
-      <version>1.0</version>
+    	<groupId>org.apache.struts</groupId>
+    	<artifactId>struts2-convention-plugin</artifactId>
+    	<version>2.2.1</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    
+    
+    <dependency>
+      <groupId>org.apache.ibatis</groupId>
+      <artifactId>ibatis-sqlmap</artifactId>
+      <version>2.3.4.726</version>
       <optional>true</optional>
     </dependency>
-    
-     <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
-      <version>1.6.1</version>
-    </dependency>
-    
-    
+      
+   <dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore</artifactId>
+    <version>4.1</version>
+    <scope>compile</scope>
+  </dependency>
+  
+  
     <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>1.6.1</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm</artifactId>
-      <version>3.2</version>
-      <optional>true</optional>
-    </dependency>
-    
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm-commons</artifactId>
-      <version>3.2</version>
-      <optional>true</optional>
-    </dependency>
-    
-    <dependency>
-      <groupId>asm</groupId>
-      <artifactId>asm-util</artifactId>
-      <version>3.2</version>
-      <optional>true</optional>
-    </dependency>
-    
-     <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>2.2</version>
-    </dependency>
-    
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpcore-nio</artifactId>
+    <version>4.1</version>
+    <scope>compile</scope>
+  </dependency>
+  
+  <dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.0.3</version>
+    <scope>compile</scope>
+  </dependency>
+  
+  
+     
     
     <dependency>
       <groupId>commons-attributes</groupId>
@@ -277,14 +279,16 @@
       <optional>true</optional>
     </dependency>
     
-
-    <dependency>
+    <!-- Apache -->
+    
+    <!-- Spring -->
+        <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring</artifactId>
       <version>2.5.6</version>
     </dependency>
-    
-    <dependency>
+
+     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>2.5.6</version>
@@ -339,13 +343,58 @@
        <version>2.5.6</version>
     </dependency>
     
+      <!-- Spring -->
     
-     <dependency>
-      <groupId>org.apache.ibatis</groupId>
-      <artifactId>ibatis-sqlmap</artifactId>
-      <version>2.3.4.726</version>
+    
+    <dependency>
+      <groupId>aopalliance</groupId>
+      <artifactId>aopalliance</artifactId>
+      <version>1.0</version>
       <optional>true</optional>
     </dependency>
+    
+     <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    
+    
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm</artifactId>
+      <version>3.2</version>
+      <optional>true</optional>
+    </dependency>
+    
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm-commons</artifactId>
+      <version>3.2</version>
+      <optional>true</optional>
+    </dependency>
+    
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm-util</artifactId>
+      <version>3.2</version>
+      <optional>true</optional>
+    </dependency>
+    
+     <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2</version>
+    </dependency>
+ 
+
+
 
       <dependency>
       <groupId>junit</groupId>
@@ -386,27 +435,9 @@
     	<type>jar</type>
     	<scope>compile</scope>
     </dependency>
-    <dependency>
-    	<groupId>org.springframework</groupId>
-    	<artifactId>spring-test</artifactId>
-    	<version>2.5.6</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.struts</groupId>
-    	<artifactId>struts2-core</artifactId>
-    	<version>2.2.1</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>org.apache.struts</groupId>
-    	<artifactId>struts2-convention-plugin</artifactId>
-    	<version>2.2.1</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
+
+
+		<!-- J2EE -->
     <dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>servlet-api</artifactId>
