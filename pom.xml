@@ -155,6 +155,15 @@
   <dependencyManagement>
 
     <dependencies> 
+    
+    <!-- youisoft -->
+      		  <dependency>
+  			<groupId>org.youisoft</groupId>
+  			<artifactId>life-circle</artifactId>
+  			<version>1.0</version>
+  		</dependency>
+    
+    
       <!-- Apache -->
           <dependency>
    <groupId>org.apache.struts</groupId>
