@@ -10,7 +10,13 @@
   <name>lightassets</name>
   <url>http://code.google.com/p/lightassets/</url>
   
-  <organization>
+  <description>description</description><developers>
+  	<developer>
+  		<id>19801020</id>
+  		<email>goosmiles@gmail.com</email>
+  		<roles>
+  			<role>pm</role>
+  			<role>sa</role></roles></developer></developers><organization>
     <name>youisoft</name>
     <url>http://www.youisoft.org</url>
   </organization>
@@ -161,7 +167,10 @@
   			<groupId>org.youisoft</groupId>
   			<artifactId>life-circle</artifactId>
   			<version>1.0</version>
-  		</dependency>
+  			<scope>compile</scope>
+  			<type>jar</type>
+  			<optional>false</optional>
+      		  </dependency>
     
     
       <!-- Apache -->
@@ -457,6 +466,31 @@
     </dependencies>
   </dependencyManagement>
   
-  
-  
+  <distributionManagement>
+  	<snapshotRepository>
+  		<id>snapshot</id>
+  		<url>mvnrepo.youisoft.org</url></snapshotRepository>
+  	<repository>
+  		<id>release</id>
+  		<url>mvnrepo.youisoft.org</url></repository></distributionManagement>
+  <repositories>
+  	<repository>
+  		<id>snapshot</id>
+  		<snapshots>
+  			<enabled>true</enabled>
+  		</snapshots>
+  		<url>mvnrepo.youisoft.org</url></repository>
+  	<repository>
+  		<id>release</id>
+  		<url>url</url></repository></repositories>
+  <pluginRepositories>
+  	<pluginRepository>
+  		<id>snapshot</id>
+  		<url>mvnrepo.youisoft.org</url></pluginRepository>
+  	<pluginRepository>
+  		<id>release</id>
+  		<url>mvnrepo.youisoft.org</url></pluginRepository></pluginRepositories>
+
+
+
 </project>
